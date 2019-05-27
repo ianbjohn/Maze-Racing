@@ -9,7 +9,7 @@ Ship::Ship(float x, float y)
     this->x = x;
     this->y = y;
     dir = 0;
-    state = 0;
+    state = STATE_STILL;
     //manually set the hitbox size for now
     width = 20;
     height = 20;

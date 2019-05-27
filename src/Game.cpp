@@ -16,9 +16,9 @@ Game::Game()
     levelOld = 0;
 
     screen = new Screen();
+    ship = new Ship(0, 0);
+    portal = new Portal(0, 0);
     screen->loadNewScreen(0);
-    ship = new Ship(screen->shipStartX, screen->shipStartY);
-    portal = new Portal(screen->portalX, screen->portalY);
 }
 
 int Game::getState()

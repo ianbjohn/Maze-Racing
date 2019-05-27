@@ -1,8 +1,14 @@
 #ifndef GAME_H
 #define GAME_H
 #include "Screen.h"
+#include "Camera.h"
 #include "Ship.h"
 #include "Portal.h"
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 608
+#define SCREEN_WIDTH_TILES 25
+#define SCREEN_HEIGHT_TILES 19
 
 
 class Game
@@ -24,6 +30,7 @@ public:
     enum States {STATE_TITLE, STATE_PLAY, STATE_GAMEOVER};
 
     static Screen* screen;
+    static Camera* camera;
 
     //keep track of entities
     static Ship* ship;

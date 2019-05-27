@@ -5,6 +5,7 @@ int Game::stateOld;
 int Game::level;
 int Game::levelOld;
 Screen* Game::screen;
+Camera* Game::camera;
 Ship* Game::ship;
 Portal* Game::portal;
 
@@ -16,6 +17,7 @@ Game::Game()
     levelOld = 0;
 
     screen = new Screen();
+    camera = new Camera();
     ship = new Ship(0, 0);
     portal = new Portal(0, 0);
     screen->loadNewScreen(0);

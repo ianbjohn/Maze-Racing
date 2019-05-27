@@ -1,8 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <string>
 #include "Game.h"
-
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 608
 
 int main()
 {
@@ -10,8 +8,6 @@ int main()
 
     //initialize game settings
     Game game;
-
-    //sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 
     //main loop
     while (window.isOpen()) {
@@ -23,6 +19,7 @@ int main()
 
         Game::ship->tick();
         Game::portal->tick();
+        Game::camera->followShip();
 
         //load new level if the level has changed
         if (Game::getLevel() != Game::getOldLevel()) {
@@ -35,6 +32,7 @@ int main()
             window.close();
 
         window.clear(sf::Color::White);
+        Game::camera->draw(window);
         Game::screen->drawScreen(window);
         Game::portal->draw(window);
         Game::ship->draw(window);

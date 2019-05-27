@@ -16,8 +16,8 @@ struct ScreenData
 
 extern const struct ScreenData screens;
 
-extern const unsigned char screen0[106];
-extern const unsigned char screen1[118];
+extern const unsigned char screen0[376];
+extern const unsigned char screen1[408];
 
 
 

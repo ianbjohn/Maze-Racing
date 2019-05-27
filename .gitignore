@@ -1,1 +1,7 @@
 *.dll
+*.cbp
+*.depend
+*.layout
+/bin
+/gfx
+/obj

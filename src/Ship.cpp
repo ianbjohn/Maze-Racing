@@ -25,10 +25,14 @@ int Ship::getState()
     return state;
 }
 
-void Ship::getPosition(sf::Vector2f v)
+float Ship::getX()
 {
-    v.x = x;
-    v.y = y;
+    return x;
+}
+
+float Ship::getY()
+{
+    return y;
 }
 
 void Ship::setState(int state)
@@ -44,9 +48,6 @@ void Ship::setPosition(sf::Vector2f v)
 
 void Ship::tick()
 {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        Game::setLevel((Game::getLevel() + 1) % 2);
-
     switch (state)
     {
     case STATE_STILL:
@@ -80,11 +81,15 @@ void Ship::tick()
             break;
         }
 
-        if (checkCollision() == 1) {
+        if (checkBackgroundCollision() == 1) {
             state = STATE_DEAD;
             break;
         }
-        //std::cout << checkCollision(screen) << std::endl;
+
+        if (checkPortalCollision() == 1) {
+            Game::setLevel((Game::getLevel() + 1) % 2);
+            break;
+        }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
             dir = DIR_DOWN;
@@ -100,11 +105,9 @@ void Ship::tick()
     }
 
     rect.setPosition(sf::Vector2f(x, y));
-
-    //std::cout << "(" << x << "," << y << ")" << std::endl;
 }
 
-int Ship::checkCollision()
+int Ship::checkBackgroundCollision()
 {
     //rudimentary 4-corner collision checking / ejecting
     //once more diverse entity types are created in future projects, approach differently
@@ -118,6 +121,19 @@ int Ship::checkCollision()
     if (tile == 1) return 1;
 
     return 0;
+}
+
+int Ship::checkPortalCollision()
+{
+    //I imagine a general entity collision function with an entity pointer wouldn't be much harder
+    //somewhat similar to background collision, check each side of the hitbox to see if its outside the portal's hitbox, and if all of them fail, there was a collision
+    //again, if entities in later games have different hitbox shapes, use a different approach
+    if (x >= (Game::portal->getX() + Game::portal->getWidth())) return 0;
+    if ((x + width) < (Game::portal->getX())) return 0;
+    if (y >= (Game::portal->getY() + Game::portal->getHeight())) return 0;
+    if ((y + height) < (Game::portal->getY())) return 0;
+
+    return 1;
 }
 
 void Ship::draw(sf::RenderWindow& w)

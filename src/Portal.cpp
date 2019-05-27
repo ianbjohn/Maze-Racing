@@ -17,6 +17,26 @@ Portal::Portal(float x, float y)
     rect.setTexture(&texture);
 }
 
+float Portal::getX()
+{
+    return x;
+}
+
+float Portal::getY()
+{
+    return y;
+}
+
+int Portal::getWidth()
+{
+    return width;
+}
+
+int Portal::getHeight()
+{
+    return height;
+}
+
 void Portal::setPosition(sf::Vector2f v)
 {
     x = v.x;

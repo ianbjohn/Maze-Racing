@@ -10,11 +10,13 @@ public:
     virtual ~Ship();
 
     int getState();
-    void getPosition(sf::Vector2f v);
+    float getX();
+    float getY();
     void setState(int state);
     void setPosition(sf::Vector2f v);
 
-    int checkCollision();
+    int checkBackgroundCollision();
+    int checkPortalCollision();
     void tick();
     void draw(sf::RenderWindow& w);
 

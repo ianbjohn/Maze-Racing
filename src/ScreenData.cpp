@@ -6,9 +6,9 @@ const struct ScreenData screens = {
     //ship start Y
     {64, 100},
     //portal X
-    {500, 600},
+    {500, 448},
     //portal Y
-    {500, 600},
+    {500, 352},
     //pointers to tile data
     {screen0, screen1}
 };

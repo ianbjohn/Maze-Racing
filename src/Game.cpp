@@ -4,10 +4,21 @@ int Game::state;
 int Game::stateOld;
 int Game::level;
 int Game::levelOld;
+Screen* Game::screen;
+Ship* Game::ship;
+Portal* Game::portal;
 
 Game::Game()
 {
     state = 0;
+    stateOld = 0;
+    level = 0;
+    levelOld = 0;
+
+    screen = new Screen();
+    screen->loadNewScreen(0);
+    ship = new Ship(screen->shipStartX, screen->shipStartY);
+    portal = new Portal(screen->portalX, screen->portalY);
 }
 
 int Game::getState()

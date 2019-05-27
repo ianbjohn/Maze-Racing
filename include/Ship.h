@@ -14,8 +14,8 @@ public:
     void setState(int state);
     void setPosition(sf::Vector2f v);
 
-    int checkCollision(Screen* screen);
-    void tick(Screen* screen);
+    int checkCollision();
+    void tick();
     void draw(sf::RenderWindow& w);
 
     enum directions {DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT};

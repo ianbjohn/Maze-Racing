@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Screen.h"
 #include "Game.h"
+#include "Screen.h"
 #include "Ship.h"
 
 Ship::Ship(float x, float y)
@@ -42,7 +42,7 @@ void Ship::setPosition(sf::Vector2f v)
     y = v.y;
 }
 
-void Ship::tick(Screen* screen)
+void Ship::tick()
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         Game::setLevel((Game::getLevel() + 1) % 2);
@@ -80,7 +80,7 @@ void Ship::tick(Screen* screen)
             break;
         }
 
-        if (checkCollision(screen) == 1) {
+        if (checkCollision() == 1) {
             state = STATE_DEAD;
             break;
         }
@@ -104,17 +104,17 @@ void Ship::tick(Screen* screen)
     //std::cout << "(" << x << "," << y << ")" << std::endl;
 }
 
-int Ship::checkCollision(Screen* screen)
+int Ship::checkCollision()
 {
     //rudimentary 4-corner collision checking / ejecting
     //once more diverse entity types are created in future projects, approach differently
-    int tile = screen->getScreenTile(x / 32, y / 32);
+    int tile = Game::screen->getScreenTile(x / 32, y / 32);
     if (tile == 1) return 1;
-    tile = screen->getScreenTile((x + width) / 32, y / 32);
+    tile = Game::screen->getScreenTile((x + width) / 32, y / 32);
     if (tile == 1) return 1;
-    tile = screen->getScreenTile(x / 32, (y + height) / 32);
+    tile = Game::screen->getScreenTile(x / 32, (y + height) / 32);
     if (tile == 1) return 1;
-    tile = screen->getScreenTile((x + width) / 32, (y + height) / 32);
+    tile = Game::screen->getScreenTile((x + width) / 32, (y + height) / 32);
     if (tile == 1) return 1;
 
     return 0;

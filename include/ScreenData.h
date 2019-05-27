@@ -1,14 +1,24 @@
 #ifndef SCREENDATA_H_INCLUDED
 #define SCREENDATA_H_INCLUDED
-#include <string>
+#include "Game.h"
 
-//figure out a better way to organize this
-//perhaps a struct with the player's starting position, and a pointer to the compressed level data
+#define NUM_LEVELS 2
+
+//structure of arrays :)
+struct ScreenData
+{
+    float shipStartX[NUM_LEVELS];
+    float shipStartY[NUM_LEVELS];
+    float portalX[NUM_LEVELS];
+    float portalY[NUM_LEVELS];
+    const unsigned char* tiles[NUM_LEVELS];
+};
+
+extern const struct ScreenData screens;
 
 extern const unsigned char screen0[106];
 extern const unsigned char screen1[118];
 
-extern const unsigned char* screens[2];
 
 
 #endif // SCREENDATA_H_INCLUDED

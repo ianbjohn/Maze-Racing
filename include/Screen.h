@@ -12,7 +12,7 @@ public:
     void loadNewScreen(int screenIndex);
     int getScreenTile(int x, int y);
     void drawScreen(sf::RenderWindow& w);
-    int shipStartX, shipStartY;
+    float shipStartX, shipStartY, portalX, portalY;
 
 
 private:

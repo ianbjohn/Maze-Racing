@@ -1,3 +1,5 @@
+#include "Game.h"
+#include "Portal.h"
 #include "Screen.h"
 
 Screen::Screen()
@@ -14,15 +16,21 @@ Screen::Screen()
 
 void Screen::loadNewScreen(int screenIndex)
 {
+    //get the ship and portal positions
+    shipStartX = screens.shipStartX[screenIndex];
+    shipStartY = screens.shipStartY[screenIndex];
+    portalX = screens.portalX[screenIndex];
+    portalY = screens.portalY[screenIndex];
+
     //decompress the screen data into the screen array, RLE style
     int decCounter = 0, comCounter = 0;
     while (decCounter < 475) {
         //expect whatever value is currently being read to be a run-length
-        int runLength = screens[screenIndex][comCounter];
+        int runLength = screens.tiles[screenIndex][comCounter];
 
         //load that many of the next value into the screen array
         while (runLength > 0) {
-            screenTiles[decCounter / 25][decCounter % 25] = screens[screenIndex][comCounter + 1];
+            screenTiles[decCounter / 25][decCounter % 25] = screens.tiles[screenIndex][comCounter + 1];
             decCounter++;
             runLength--;
         }
@@ -36,6 +44,13 @@ void Screen::loadNewScreen(int screenIndex)
                 screenRects[i][j].setTexture(&blockTexture);
         }
     }
+
+    //move the ship to its new starting point
+    Game::ship->setPosition(sf::Vector2f(shipStartX, shipStartY));
+    Game::ship->setState(Ship::STATE_STILL);
+
+    //move portal to its new starting point
+    Game::portal->setPosition(sf::Vector2f(portalX, portalY));
 }
 
 int Screen::getScreenTile(int x, int y)

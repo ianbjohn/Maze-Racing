@@ -1,6 +1,17 @@
 #include "ScreenData.h"
 
-const unsigned char* screens[2] = {screen0, screen1};
+const struct ScreenData screens = {
+    //ship start X
+    {64, 100},
+    //ship start Y
+    {64, 100},
+    //portal X
+    {500, 600},
+    //portal Y
+    {500, 600},
+    //pointers to tile data
+    {screen0, screen1}
+};
 
 const unsigned char screen0[106] = {
     25,1,

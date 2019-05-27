@@ -24,6 +24,7 @@ int main()
         if (Game::getLevel() != Game::getOldLevel()) {
             window.clear();
             Game::updateOldLevel();
+            Game::screen->cleanUpScreen();
             Game::screen->loadNewScreen(Game::getLevel());
         }
 

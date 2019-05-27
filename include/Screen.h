@@ -3,13 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include "ScreenData.h"
 
-//maximum height/width a room can be
-//later, make rooms able to be different sizes, but keep these as the maxes
-#define ROOM_WIDTH 1024
-#define ROOM_HEIGHT 1024
-#define ROOM_WIDTH_TILES (ROOM_WIDTH / 32)
-#define ROOM_HEIGHT_TILES (ROOM_HEIGHT / 32)
-
 class Screen
 {
 public:
@@ -19,11 +12,14 @@ public:
     void loadNewScreen(int screenIndex);
     int getScreenTile(int x, int y);
     void drawScreen(sf::RenderWindow& w);
+    void cleanUpScreen();
+
     float shipStartX, shipStartY, portalX, portalY;
+    int width, height, widthTiles, heightTiles;
 
 private:
-    int screenTiles[ROOM_HEIGHT_TILES][ROOM_WIDTH_TILES];
-    sf::RectangleShape screenRects[ROOM_HEIGHT_TILES][ROOM_WIDTH_TILES];
+    int** screenTiles;
+    sf::RectangleShape** screenRects;
     sf::Texture blockTexture;   //if different textures are going to be used for the screen, make a resource manager
 };
 

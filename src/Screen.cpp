@@ -5,14 +5,6 @@
 Screen::Screen()
 {
     blockTexture.loadFromFile("gfx/block.png");
-
-    //give each rectangle a position and size
-    for (int i = 0; i < ROOM_HEIGHT_TILES; i++) {
-        for (int j = 0; j < ROOM_WIDTH_TILES; j++) {
-            screenRects[i][j].setPosition(sf::Vector2f(j * 32, i * 32));
-            screenRects[i][j].setSize(sf::Vector2f(32, 32));
-        }
-    }
 }
 
 void Screen::loadNewScreen(int screenIndex)
@@ -22,16 +14,37 @@ void Screen::loadNewScreen(int screenIndex)
     shipStartY = screens.shipStartY[screenIndex];
     portalX = screens.portalX[screenIndex];
     portalY = screens.portalY[screenIndex];
+    width = screens.width[screenIndex];
+    height = screens.height[screenIndex];
+    widthTiles = width / 32;
+    heightTiles = height / 32;
+
+    //allocate the map tiles and rects based on width and height, and fetch tile data
+    screenTiles = new int*[heightTiles];
+    for (int i = 0; i < heightTiles; i++)
+        screenTiles[i] = new int[widthTiles];
+
+    //give each rectangle a position and size
+    screenRects = new sf::RectangleShape*[heightTiles];
+    for (int i = 0; i < heightTiles; i++)
+        screenRects[i] = new sf::RectangleShape[widthTiles];
+
+    for (int i = 0; i < heightTiles; i++) {
+        for (int j = 0; j < widthTiles; j++) {
+            screenRects[i][j].setPosition(sf::Vector2f(j * 32, i * 32));
+            screenRects[i][j].setSize(sf::Vector2f(32, 32));
+        }
+    }
 
     //decompress the screen data into the screen array, RLE style
     int decCounter = 0, comCounter = 0;
-    while (decCounter < ROOM_WIDTH_TILES * ROOM_HEIGHT_TILES) {
+    while (decCounter < widthTiles * heightTiles) {
         //expect whatever value is currently being read to be a run-length
         int runLength = screens.tiles[screenIndex][comCounter];
 
         //load that many of the next value into the screen array
         while (runLength > 0) {
-            screenTiles[decCounter / ROOM_WIDTH_TILES][decCounter % ROOM_WIDTH_TILES] = screens.tiles[screenIndex][comCounter + 1];
+            screenTiles[decCounter / widthTiles][decCounter % widthTiles] = screens.tiles[screenIndex][comCounter + 1];
             decCounter++;
             runLength--;
         }
@@ -39,8 +52,8 @@ void Screen::loadNewScreen(int screenIndex)
     }
 
     //map the right texture to each tile
-    for (int i = 0; i < ROOM_HEIGHT_TILES; i++) {
-        for (int j = 0; j < ROOM_WIDTH_TILES; j++) {
+    for (int i = 0; i < heightTiles; i++) {
+        for (int j = 0; j < widthTiles; j++) {
             if (screenTiles[i][j] == 1)
                 screenRects[i][j].setTexture(&blockTexture);
         }
@@ -55,6 +68,17 @@ void Screen::loadNewScreen(int screenIndex)
 
     //move the camera to the ship's starting point
     Game::camera->followShip();
+}
+
+void Screen::cleanUpScreen()
+{
+    //free the screen's memory
+    for (int i = 0; i < heightTiles; i++) {
+        delete screenTiles[i];
+        delete screenRects[i];
+    }
+    delete screenTiles;
+    delete screenRects;
 }
 
 int Screen::getScreenTile(int x, int y)

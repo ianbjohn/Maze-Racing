@@ -87,7 +87,7 @@ void Ship::tick()
         }
 
         if (checkPortalCollision() == 1) {
-            Game::setLevel((Game::getLevel() + 1) % 2);
+            Game::setLevel((Game::getLevel() + 1) % NUM_LEVELS);
             break;
         }
 

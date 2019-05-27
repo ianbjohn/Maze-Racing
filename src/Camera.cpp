@@ -23,15 +23,15 @@ void Camera::followShip()
     //put the ship in the center of the camera view, unless he's at one of the corners of the room
     if (Game::ship->getX() < SCREEN_WIDTH / 2)
         x = 0;
-    else if (Game::ship->getX() >= ROOM_WIDTH - 1 - (SCREEN_WIDTH / 2))
-        x = ROOM_WIDTH - SCREEN_WIDTH;
+    else if (Game::ship->getX() >= Game::screen->width - 1 - (SCREEN_WIDTH / 2))
+        x = Game::screen->width - SCREEN_WIDTH;
     else
         x = Game::ship->getX() - (SCREEN_WIDTH / 2);
 
     if (Game::ship->getY() < SCREEN_HEIGHT / 2)
         y = 0;
-    else if (Game::ship->getY() >= ROOM_HEIGHT - 1 - (SCREEN_HEIGHT / 2))
-        y = ROOM_HEIGHT - SCREEN_HEIGHT;
+    else if (Game::ship->getY() >= Game::screen->height - 1 - (SCREEN_HEIGHT / 2))
+        y = Game::screen->height - SCREEN_HEIGHT;
     else
         y = Game::ship->getY() - (SCREEN_HEIGHT / 2);
 

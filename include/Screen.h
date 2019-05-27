@@ -5,8 +5,8 @@
 
 //maximum height/width a room can be
 //later, make rooms able to be different sizes, but keep these as the maxes
-#define ROOM_WIDTH 2048
-#define ROOM_HEIGHT 2048
+#define ROOM_WIDTH 1024
+#define ROOM_HEIGHT 1024
 #define ROOM_WIDTH_TILES (ROOM_WIDTH / 32)
 #define ROOM_HEIGHT_TILES (ROOM_HEIGHT / 32)
 

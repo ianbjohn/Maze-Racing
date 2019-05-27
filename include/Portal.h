@@ -10,6 +10,8 @@ public:
     virtual ~Portal();
 
     void setPosition(sf::Vector2f v);
+    void tick();
+    void draw(sf::RenderWindow& w);
 
 private:
     float x, y;

@@ -23,6 +23,17 @@ void Portal::setPosition(sf::Vector2f v)
     y = v.y;
 }
 
+void Portal::tick()
+{
+    //a bit overkill, since the portal never moves and nothing else needs to happen to it right now, but it's no big deal
+    rect.setPosition(sf::Vector2f(x, y));
+}
+
+void Portal::draw(sf::RenderWindow& w)
+{
+    w.draw(rect);
+}
+
 Portal::~Portal()
 {
     //dtor

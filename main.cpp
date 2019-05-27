@@ -6,7 +6,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Racer");
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Racing");
 
     //initialize game settings
     Game game;
@@ -22,6 +22,7 @@ int main()
         }
 
         Game::ship->tick();
+        Game::portal->tick();
 
         //load new level if the level has changed
         if (Game::getLevel() != Game::getOldLevel()) {
@@ -35,6 +36,7 @@ int main()
 
         window.clear(sf::Color::White);
         Game::screen->drawScreen(window);
+        Game::portal->draw(window);
         Game::ship->draw(window);
         window.display();
     }

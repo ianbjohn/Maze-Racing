@@ -17,9 +17,9 @@ void Level::loadNewLevel(int levelIndex)
     heightTiles = SCREEN_HEIGHT_TILES;
 
     //allocate the map tiles and rects based on width and height, and fetch tile data
-    screenTiles = new int*[heightTiles];
+    screenTiles = new unsigned char*[heightTiles];
     for (int i = 0; i < heightTiles; i++)
-        screenTiles[i] = new int[widthTiles];
+        screenTiles[i] = new unsigned char[widthTiles];
 
     //give each rectangle a position and size
     screenRects = new sf::RectangleShape*[heightTiles];
@@ -33,20 +33,8 @@ void Level::loadNewLevel(int levelIndex)
         }
     }
 
-    //decompress the screen data into the screen array, RLE style
-    int decCounter = 0, comCounter = 0;
-    while (decCounter < widthTiles * heightTiles) {
-        //expect whatever value is currently being read to be a run-length
-        int runLength = levels.tiles[levelIndex][comCounter];
-
-        //load that many of the next value into the screen array
-        while (runLength > 0) {
-            screenTiles[decCounter / widthTiles][decCounter % widthTiles] = levels.tiles[levelIndex][comCounter + 1];
-            decCounter++;
-            runLength--;
-        }
-        comCounter += 2;
-    }
+    //decompress the level data into the map
+    RLEdecompress(levels.tiles[levelIndex], screenTiles, widthTiles, heightTiles);
 
     //map the right texture to each tile
     for (int i = 0; i < heightTiles; i++) {

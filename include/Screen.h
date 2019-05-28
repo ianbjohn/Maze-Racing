@@ -2,6 +2,7 @@
 #define SCREEN_H
 #include <SFML/Graphics.hpp>
 //#include "Game.h"
+#include "RLEDecompress.h"
 
 class Screen
 {
@@ -18,7 +19,7 @@ public:
     int width, height, widthTiles, heightTiles;
 
 protected:
-    int** screenTiles;
+    unsigned char** screenTiles;
     sf::RectangleShape** screenRects;
     sf::Texture blockTexture;   //move to resource manager
 };

@@ -5,3 +5,6 @@
 /bin
 /gfx
 /obj
+/music
+
+version.h

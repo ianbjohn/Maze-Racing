@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 #include <SFML/Graphics.hpp>
+#include "Screen.h"
+#include "Entity.h"
 
 
 class Camera
@@ -12,7 +14,7 @@ public:
     float getX();
     float getY();
 
-    void followShip();
+    void follow(Entity* e, Screen* s);
     void draw(sf::RenderWindow& w);
 
 private:

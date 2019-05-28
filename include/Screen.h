@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 #include <SFML/Graphics.hpp>
-#include "ScreenData.h"
+//#include "Game.h"
 
 class Screen
 {
@@ -17,10 +17,10 @@ public:
     float shipStartX, shipStartY, portalX, portalY;
     int width, height, widthTiles, heightTiles;
 
-private:
+protected:
     int** screenTiles;
     sf::RectangleShape** screenRects;
-    sf::Texture blockTexture;   //if different textures are going to be used for the screen, make a resource manager
+    sf::Texture blockTexture;   //move to resource manager
 };
 
 #endif // SCREEN_H

@@ -1,26 +1,36 @@
+#include "Screen.h"
+#include "Entity.h"
+#include "Level.h"
+#include "Overworld.h"
+#include "Camera.h"
+#include "LevelShip.h"
+#include "OverworldShip.h"
 #include "Game.h"
 
 int Game::state;
 int Game::stateOld;
-int Game::level;
-int Game::levelOld;
-Screen* Game::screen;
+int Game::levelNum;
+int Game::levelNumOld;
+Overworld* Game::overworld;
+Level* Game::level;
 Camera* Game::camera;
-Ship* Game::ship;
-Portal* Game::portal;
+LevelShip* Game::levelShip;
+OverworldShip* Game::overworldShip;
 
 Game::Game()
 {
     state = 0;
     stateOld = 0;
-    level = 0;
-    levelOld = 0;
+    levelNum = 0;
+    levelNumOld = 0;
 
-    screen = new Screen();
+    level = new Level();
+    overworld = new Overworld();
     camera = new Camera();
-    ship = new Ship(0, 0);
-    portal = new Portal(0, 0);
-    screen->loadNewScreen(0);
+    levelShip = new LevelShip();
+    overworldShip = new OverworldShip();
+    level->loadNewLevel(0);
+    overworld->load();
 }
 
 int Game::getState()
@@ -33,14 +43,14 @@ int Game::getOldState()
     return stateOld;
 }
 
-int Game::getLevel()
+int Game::getLevelNum()
 {
-    return level;
+    return levelNum;
 }
 
-int Game::getOldLevel()
+int Game::getOldLevelNum()
 {
-    return levelOld;
+    return levelNumOld;
 }
 
 void Game::setState(int s)
@@ -48,9 +58,9 @@ void Game::setState(int s)
     state = s;
 }
 
-void Game::setLevel(int l)
+void Game::setLevelNum(int l)
 {
-    level = l;
+    levelNum = l;
 }
 
 void Game::updateOldState()
@@ -58,9 +68,9 @@ void Game::updateOldState()
     stateOld = state;
 }
 
-void Game::updateOldLevel()
+void Game::updateOldLevelNum()
 {
-    levelOld = level;
+    levelNumOld = levelNum;
 }
 
 Game::~Game()

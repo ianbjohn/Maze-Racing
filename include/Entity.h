@@ -1,29 +1,32 @@
-#ifndef SHIP_H
-#define SHIP_H
+#ifndef ENTITY_H
+#define ENTITY_H
+#include <SFML/Graphics.hpp>
 #include "Screen.h"
-#define SPEED 0.5
 
-class Ship
+
+class Entity
 {
 public:
-    Ship(float x, float y);
-    virtual ~Ship();
+    Entity();
+    virtual ~Entity();
 
     int getState();
     float getX();
     float getY();
+    int getWidth();
+    int getHeight();
     void setState(int state);
     void setPosition(sf::Vector2f v);
 
-    int checkBackgroundCollision();
-    int checkPortalCollision();
-    void tick();
-    void draw(sf::RenderWindow& w);
+    int checkBackgroundCollision(Screen* s);
+    int checkEntityCollision(Entity* e);
 
     enum directions {DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT};
-    enum states {STATE_STILL, STATE_MOVING, STATE_DEAD};
 
-private:
+    virtual void tick() = 0;
+    void draw(sf::RenderWindow& w);
+
+protected:
     float x, y;
     int width, height, dir;
     int state;
@@ -31,4 +34,4 @@ private:
     sf::Texture texture;
 };
 
-#endif // SHIP_H
+#endif // ENTITY_H

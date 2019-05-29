@@ -15,23 +15,30 @@ OverworldShip::OverworldShip()
     height = 32;
     rect.setPosition(sf::Vector2f(this->x, this->y));
     rect.setSize(sf::Vector2f(width, height));
-    if (texture.loadFromFile("gfx/levelship.png") == 0)
+    if (texture.loadFromFile("gfx/overworldship.png") == 0)
         std::cerr << "Error loading ship sprite" << std::endl;
     rect.setTexture(&texture);
+    rect.setTextureRect(sf::IntRect(dirRectsX[dir], 0, 32, 32));
 }
 
 void OverworldShip::tick()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         y--;
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+        dir = DIR_UP;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         y++;
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+        dir = DIR_DOWN;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
         x--;
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+        dir = DIR_LEFT;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         x++;
+        dir = DIR_RIGHT;
+    }
 
     rect.setPosition(x, y);
+    rect.setTextureRect(sf::IntRect(dirRectsX[dir], 0, 32, 32));
 }
 
 OverworldShip::~OverworldShip()

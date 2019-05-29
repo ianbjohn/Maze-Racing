@@ -1,6 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Screen.h"
 
 
@@ -16,7 +17,8 @@ public:
     int getWidth();
     int getHeight();
     void setState(int state);
-    void setPosition(sf::Vector2f v);
+    void setPosition(float x, float y);
+    void setDir(int d);
 
     int checkBackgroundCollision(Screen* s);
     int checkEntityCollision(Entity* e);
@@ -24,7 +26,7 @@ public:
     enum directions {DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT};
 
     virtual void tick() = 0;
-    void draw(sf::RenderWindow& w);
+    void draw(sf::RenderWindow* w);
 
 protected:
     float x, y;

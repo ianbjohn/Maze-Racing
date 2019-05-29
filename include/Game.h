@@ -31,7 +31,7 @@ public:
     static void updateOldState();
     static void updateOldLevelNum();
 
-    enum States {STATE_TITLE, STATE_PLAY, STATE_GAMEOVER};
+    enum States {STATE_TITLE, STATE_OVERWORLD, STATE_LEVEL, STATE_GAMEOVER, STATE_MSGBREAK, STATE_CREDITS};
 
     static Overworld* overworld;
     static Level* level;
@@ -39,6 +39,10 @@ public:
 
     static LevelShip* levelShip;
     static OverworldShip* overworldShip;
+
+    static sf::RenderWindow* window;
+    static sf::Event event;
+    static void run();
 
 private:
     static int state;

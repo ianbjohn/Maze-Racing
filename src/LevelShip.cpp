@@ -37,7 +37,7 @@ void LevelShip::tick()
         }
 
         if (checkBackgroundCollision(Game::level) == 1) {
-            state = STATE_DEAD;
+            state = STATE_EXPLODING;
             break;
         }
 
@@ -49,7 +49,7 @@ void LevelShip::tick()
             speed = MOVING_SPEED;
         }
         break;
-    case STATE_DEAD:
+    case STATE_EXPLODING:
         break;
     }
 

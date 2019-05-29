@@ -38,11 +38,12 @@ void Camera::follow(Entity* e, Screen* s)
         y = e->getY() - (SCREEN_HEIGHT / 2);
 
     view->setCenter(x + (SCREEN_WIDTH / 2), y + (SCREEN_HEIGHT / 2));
+    std::cout << x << ", " << y << std::endl;
 }
 
-void Camera::draw(sf::RenderWindow& w)
+void Camera::draw(sf::RenderWindow* w)
 {
-    w.setView(*view);
+    w->setView(*view);
 }
 
 Camera::~Camera()

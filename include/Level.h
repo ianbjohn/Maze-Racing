@@ -1,7 +1,6 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 #include "Screen.h"
-#include "LevelData.h"
 
 
 class Level : public Screen

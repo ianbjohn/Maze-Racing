@@ -36,10 +36,15 @@ void Entity::setState(int state)
     this->state = state;
 }
 
-void Entity::setPosition(sf::Vector2f v)
+void Entity::setPosition(float x, float y)
 {
-    x = v.x;
-    y = v.y;
+    this->x = x;
+    this->y = y;
+}
+
+void Entity::setDir(int d)
+{
+    dir = d;
 }
 
 int Entity::checkBackgroundCollision(Screen* s)
@@ -71,10 +76,10 @@ int Entity::checkEntityCollision(Entity* e)
     return 1;
 }
 
-void Entity::draw(sf::RenderWindow& w)
+void Entity::draw(sf::RenderWindow* w)
 {
     if (x >= Game::camera->getX() && x < Game::camera->getX() + SCREEN_WIDTH && y >= Game::camera->getY() && y < Game::camera->getY() + SCREEN_HEIGHT);
-        w.draw(rect);
+        w->draw(rect);
 }
 
 Entity::~Entity()

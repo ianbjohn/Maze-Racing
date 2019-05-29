@@ -10,9 +10,9 @@ public:
     Screen();
     virtual ~Screen();
 
-    void loadNewScreen(int screenIndex);
+    void loadNewScreen(int w, int h, const unsigned char* tileDataSource);
     int getScreenTile(int x, int y);
-    void drawScreen(sf::RenderWindow& w);
+    void drawScreen(sf::RenderWindow* w);
     void cleanUpScreen();
 
     float shipStartX, shipStartY, portalX, portalY;

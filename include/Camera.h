@@ -15,7 +15,7 @@ public:
     float getY();
 
     void follow(Entity* e, Screen* s);
-    void draw(sf::RenderWindow& w);
+    void draw(sf::RenderWindow* w);
 
 private:
     float x, y;

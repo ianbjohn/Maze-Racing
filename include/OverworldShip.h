@@ -5,13 +5,15 @@
 
 class OverworldShip : public Entity
 {
-    public:
-        OverworldShip();
-        virtual ~OverworldShip();
+public:
+    OverworldShip();
+    virtual ~OverworldShip();
 
-        void tick();
+    enum states{STATE_STILL, STATE_MOVING, STATE_EXPLODING};
 
-    private:
+    void tick();
+
+private:
 };
 
 #endif // OVERWORLDSHIP_H

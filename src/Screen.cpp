@@ -1,12 +1,10 @@
 #include <iostream>
 #include "Game.h"
-#include "Portal.h"
 #include "Screen.h"
 
 Screen::Screen()
 {
-    //move this to a ResourceManager
-    blockTexture.loadFromFile("gfx/block.png");
+
 }
 
 void Screen::loadNewScreen(int w, int h, const unsigned char* tileDataSource)
@@ -52,7 +50,7 @@ void Screen::loadNewScreen(int w, int h, const unsigned char* tileDataSource)
     for (int i = 0; i < heightTiles; i++) {
         for (int j = 0; j < widthTiles; j++) {
             if (screenTiles[i][j] == 1)
-                screenRects[i][j].setTexture(&blockTexture);
+                screenRects[i][j].setTexture(&Game::resourceManager.blockTexture);
         }
     }
 }
@@ -73,13 +71,13 @@ int Screen::getScreenTile(int x, int y)
     return screenTiles[y][x];
 }
 
-void Screen::drawScreen(sf::RenderWindow* w)
+void Screen::drawScreen(sf::RenderWindow& w)
 {
     //only draw textures that are currently inside the camera
-    for (int i = Game::camera->getY() / 32; i < (Game::camera->getY() / 32) + SCREEN_HEIGHT_TILES; i++) {
-        for (int j = Game::camera->getX() / 32; j < (Game::camera->getX() / 32) + SCREEN_WIDTH_TILES; j++) {
+    for (int i = Game::camera.getY() / 32; i < (Game::camera.getY() / 32) + SCREEN_HEIGHT_TILES; i++) {
+        for (int j = Game::camera.getX() / 32; j < (Game::camera.getX() / 32) + SCREEN_WIDTH_TILES; j++) {
             if (screenTiles[i][j] == 1)
-                w->draw(screenRects[i][j]);
+                w.draw(screenRects[i][j]);
         }
     }
 }

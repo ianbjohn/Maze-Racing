@@ -14,12 +14,12 @@ void Level::loadNewLevel(int levelIndex)
     Screen::loadNewScreen(levels.width[levelIndex], SCREEN_HEIGHT, levels.tiles[levelIndex]);
 
     //move the ship to its new starting point
-    Game::levelShip->setPosition(64, 250);
-    Game::levelShip->setState(LevelShip::STATE_MOVING);
-    Game::levelShip->setDir(LevelShip::DIR_RIGHT);
+    Game::levelShip.setPosition(64, 250);
+    Game::levelShip.setState(LevelShip::STATE_MOVING);
+    Game::levelShip.setDir(LevelShip::DIR_RIGHT);
 
     //move the camera to the ship's starting point
-    Game::camera->follow(Game::levelShip, Game::level);
+    Game::camera.follow(Game::levelShip, Game::level);
 }
 
 Level::~Level()

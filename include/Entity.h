@@ -20,20 +20,19 @@ public:
     void setPosition(float x, float y);
     void setDir(int d);
 
-    int checkBackgroundCollision(Screen* s);
-    int checkEntityCollision(Entity* e);
+    int checkBackgroundCollision(Screen& s);
+    int checkEntityCollision(Entity& e);
 
     enum directions {DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT};
 
     virtual void tick() = 0;
-    void draw(sf::RenderWindow* w);
+    void draw(sf::RenderWindow& w);
 
 protected:
     float x, y;
     int width, height, dir;
     int state;
     sf::RectangleShape rect;
-    sf::Texture texture;
 };
 
 #endif // ENTITY_H

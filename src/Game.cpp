@@ -12,12 +12,13 @@ int Game::state;
 int Game::stateOld;
 int Game::levelNum;
 int Game::levelNumOld;
-Overworld* Game::overworld;
-Level* Game::level;
-Camera* Game::camera;
-LevelShip* Game::levelShip;
-OverworldShip* Game::overworldShip;
-sf::RenderWindow* Game::window;
+ResourceManager Game::resourceManager;
+Overworld Game::overworld;
+Level Game::level;
+Camera Game::camera;
+LevelShip Game::levelShip;
+OverworldShip Game::overworldShip;
+sf::RenderWindow Game::window{sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Racing"};
 sf::Event Game::event;
 
 Game::Game()
@@ -27,16 +28,10 @@ Game::Game()
     levelNum = 0;
     levelNumOld = 0;
 
-    window = new sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Racing");
-    window->setFramerateLimit(60);
+    window.setFramerateLimit(60);
 
-    level = new Level();
-    overworld = new Overworld();
-    camera = new Camera();
-    levelShip = new LevelShip();
-    overworldShip = new OverworldShip();
-    level->loadNewLevel(0);
-    overworld->load();
+    level.loadNewLevel(0);
+    overworld.load();
 }
 
 void Game::run()
@@ -44,47 +39,46 @@ void Game::run()
     //once more comfortable with function pointers, have an array of pointers to each state function
     //like an indirect jump table
     //just to get rid of some of these parentheses
-    while (Game::window->isOpen()) {
-        while (Game::window->pollEvent(Game::event)) {
-            if (Game::event.type == sf::Event::Closed)
-                Game::window->close();
-
+    while (window.isOpen()) {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
         }
 
-        window->clear(sf::Color::White);
+        window.clear(sf::Color::White);
 
         //maybe in future projects have the entity list just in the game class? and draw whichever entities are currently active
         switch (state) {
         case STATE_OVERWORLD:
-            Game::overworldShip->tick();
-            Game::camera->follow(Game::overworldShip, Game::overworld);
-            Game::overworld->drawScreen(window);
-            Game::overworldShip->draw(window);
+            overworldShip.tick();
+            camera.follow(overworldShip, Game::overworld);
+            overworld.drawScreen(window);
+            overworldShip.draw(window);
 
             //if the ship hit a hole, go to the level
 
             break;
         case STATE_LEVEL:
-            Game::levelShip->tick();
-            Game::camera->follow(Game::levelShip, Game::level);
-            Game::level->drawScreen(window);
-            Game::levelShip->draw(window);
+            levelShip.tick();
+            camera.follow(levelShip, level);
+            level.drawScreen(window);
+            levelShip.draw(window);
 
-            if (Game::levelShip->getState() == LevelShip::STATE_EXPLODING)
+            if (levelShip.getState() == LevelShip::STATE_EXPLODING)
                 state = STATE_OVERWORLD;
-            else if (Game::getLevelNum() != Game::getOldLevelNum()) {
+            else if (getLevelNum() != getOldLevelNum()) {
                 //load new level if the player finished the current level
-                Game::updateOldLevelNum();
-                Game::level->cleanUpScreen();
-                Game::level->loadNewLevel(Game::getLevelNum());
+                updateOldLevelNum();
+                level.cleanUpScreen();
+                level.loadNewLevel(getLevelNum());
                 state = STATE_OVERWORLD;
             }
 
             break;
         }
 
-        Game::camera->draw(Game::window);
-        Game::window->display();
+        camera.draw(window);
+        window.display();
     }
 }
 

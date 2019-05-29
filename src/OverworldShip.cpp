@@ -15,9 +15,7 @@ OverworldShip::OverworldShip()
     height = 32;
     rect.setPosition(sf::Vector2f(this->x, this->y));
     rect.setSize(sf::Vector2f(width, height));
-    if (texture.loadFromFile("gfx/overworldship.png") == 0)
-        std::cerr << "Error loading ship sprite" << std::endl;
-    rect.setTexture(&texture);
+    rect.setTexture(&Game::resourceManager.overworldShipTexture);
     rect.setTextureRect(sf::IntRect(dirRectsX[dir], 0, 32, 32));
 }
 

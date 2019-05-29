@@ -16,9 +16,7 @@ LevelShip::LevelShip()
     height = 9;
     rect.setPosition(sf::Vector2f(this->x, this->y));
     rect.setSize(sf::Vector2f(width, height));
-    if (texture.loadFromFile("gfx/levelship.png") == 0)
-        std::cerr << "Error loading ship sprite" << std::endl;
-    rect.setTexture(&texture);
+    rect.setTexture(&Game::resourceManager.levelShipTexture);
 }
 
 void LevelShip::tick()

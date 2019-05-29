@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+#include "ResourceManager.h"
 #include "Camera.h"
 #include "Screen.h"
 #include "Entity.h"
@@ -33,14 +34,16 @@ public:
 
     enum States {STATE_TITLE, STATE_OVERWORLD, STATE_LEVEL, STATE_GAMEOVER, STATE_MSGBREAK, STATE_CREDITS};
 
-    static Overworld* overworld;
-    static Level* level;
-    static Camera* camera;
+    static ResourceManager resourceManager;
 
-    static LevelShip* levelShip;
-    static OverworldShip* overworldShip;
+    static Overworld overworld;
+    static Level level;
+    static Camera camera;
 
-    static sf::RenderWindow* window;
+    static LevelShip levelShip;
+    static OverworldShip overworldShip;
+
+    static sf::RenderWindow window;
     static sf::Event event;
     static void run();
 

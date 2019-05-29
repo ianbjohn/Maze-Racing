@@ -11,7 +11,7 @@ public:
 
     void loadNewScreen(int w, int h, const unsigned char* tileDataSource);
     int getScreenTile(int x, int y);
-    void drawScreen(sf::RenderWindow* w);
+    void drawScreen(sf::RenderWindow& w);
     void cleanUpScreen();
 
     float shipStartX, shipStartY, portalX, portalY;
@@ -20,7 +20,6 @@ public:
 protected:
     unsigned char** screenTiles;
     sf::RectangleShape** screenRects;
-    sf::Texture blockTexture;   //move to resource manager
 };
 
 #endif // SCREEN_H

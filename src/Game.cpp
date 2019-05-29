@@ -22,7 +22,7 @@ sf::Event Game::event;
 
 Game::Game()
 {
-    state = STATE_LEVEL;    //change to TITLE later of course
+    state = STATE_OVERWORLD;    //change to TITLE later of course
     stateOld = state;
     levelNum = 0;
     levelNumOld = 0;
@@ -57,7 +57,7 @@ void Game::run()
         switch (state) {
         case STATE_OVERWORLD:
             Game::overworldShip->tick();
-            Game::camera->follow(Game::overworldShip, Game::level);
+            Game::camera->follow(Game::overworldShip, Game::overworld);
             Game::overworld->drawScreen(window);
             Game::overworldShip->draw(window);
 

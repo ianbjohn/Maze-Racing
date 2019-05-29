@@ -26,14 +26,12 @@ void OverworldShip::tick()
         y--;
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
         y++;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
         x--;
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
         x++;
 
-    //std::cout << x << ", " << y << std::endl;
-    rect.setPosition(sf::Vector2f(x, y));
+    rect.setPosition(x, y);
 }
 
 OverworldShip::~OverworldShip()

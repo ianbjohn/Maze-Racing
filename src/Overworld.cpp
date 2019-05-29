@@ -19,7 +19,6 @@ void Overworld::load()
 
     //move the camera to the ship's starting point
     Game::camera->follow(Game::overworldShip, Game::overworld);
-    std::cout << Game::camera->getX() << ", " << Game::camera->getY() << std::endl;
 }
 
 Overworld::~Overworld()

@@ -2,7 +2,6 @@
 #define SCREEN_H
 #include <SFML/Graphics.hpp>
 //#include "Game.h"
-#include "RLEDecompress.h"
 
 class Screen
 {

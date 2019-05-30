@@ -14,6 +14,7 @@ public:
     sf::Texture levelShipTexture;
     sf::Texture holeTexture;
     sf::Texture coveredHoleTexture;
+    sf::Image icon;
 };
 
 #endif // RESOURCEMANAGER_H

@@ -23,6 +23,8 @@ sf::Event Game::event;
 
 Game::Game()
 {
+    window.setIcon(32, 32, Game::resourceManager.holeTexture.copyToImage().getPixelsPtr());
+
     state = STATE_OVERWORLD;    //change to TITLE later of course
     stateOld = state;
     levelNum = 0;
@@ -67,6 +69,7 @@ void Game::run()
 
             if (levelShip.getState() == LevelShip::STATE_EXPLODING) {
                 overworldShip.setPosition(overworldShip.getReturnX(), overworldShip.getReturnY());
+                camera.follow(overworldShip, overworld);
                 state = STATE_OVERWORLD;
             } else if (getLevelNum() != getOldLevelNum()) {
                 //load new level if the player finished the current level

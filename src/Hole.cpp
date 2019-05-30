@@ -13,8 +13,7 @@ void Hole::tick()
 {
     switch (state) {
     case STATE_OPEN:
-        //if touching player, change game state to level
-        if (checkEntityCollision(Game::overworldShip) == 1) {
+        if (Game::overworldShip.getState() != OverworldShip::STATE_EXPLODING && checkEntityCollision(Game::overworldShip) == 1) {
             Game::setState(Game::STATE_LEVEL);
             Game::levelShip.setPosition(96, 96);
             Game::levelShip.setState(LevelShip::STATE_MOVING);

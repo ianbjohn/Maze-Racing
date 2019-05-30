@@ -22,7 +22,7 @@ void Screen::loadNewScreen(int w, int h, const unsigned char* tileDataSource)
     width = w;
     height = h;
     widthTiles = width / 32;
-    heightTiles = h / 32;
+    heightTiles = height / 32;
 
     //allocate the map tiles and rects based on width and height, and fetch tile data
     screenTiles = new unsigned char*[heightTiles];

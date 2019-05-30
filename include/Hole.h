@@ -10,7 +10,7 @@ public:
     Hole();
     virtual ~Hole();
 
-protected:
+    void tick();
 
 private:
 };

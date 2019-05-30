@@ -9,9 +9,7 @@ public:
     Overworld();
     virtual ~Overworld();
 
-    //have a vector list of hole entities
     void load();
-
 private:
 };
 

@@ -8,7 +8,7 @@ public:
     Level();
     virtual ~Level();
 
-    void loadNewLevel(int levelIndex);
+    void load();
 };
 
 #endif // LEVEL_H

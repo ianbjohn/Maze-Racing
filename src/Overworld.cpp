@@ -6,12 +6,17 @@
 
 Overworld::Overworld()
 {
-
+    returnHoleIndex = 0;
 }
 
 Hole* Overworld::getHole(int i)
 {
     return &holes[i];
+}
+
+int Overworld::getReturnHoleIndex()
+{
+    return returnHoleIndex;
 }
 
 //Make one of these for the level too if things besides just the screen tiles need to be loaded

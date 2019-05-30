@@ -41,7 +41,7 @@ void LevelShip::tick()
             Game::overworld.getHole(Game::getLevelNum())->setState(Hole::STATE_COVERED);
             Game::setLevelNum(Game::getLevelNum() + 1);
             Game::level.cleanUpScreen();
-            Game::level.loadNewLevel(Game::getLevelNum());
+            Game::level.load();
         }
 
         if (checkBackgroundCollision(Game::level) == 1) {

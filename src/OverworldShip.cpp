@@ -53,6 +53,9 @@ void OverworldShip::tick()
         dir = DIR_RIGHT;
     }
 
+    if (checkBackgroundCollision(Game::overworld) == 1)
+        state = STATE_EXPLODING;
+
     rect.setPosition(x, y);
     rect.setTextureRect(sf::IntRect(dirRectsX[dir], 0, 32, 32));
 }

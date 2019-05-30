@@ -13,6 +13,7 @@ public:
     virtual ~Overworld();
 
     Hole* getHole(int i);
+    int getReturnHoleIndex();
 
     void load();
     void tick();
@@ -21,6 +22,7 @@ public:
 
 private:
     Hole holes[NUM_HOLES];
+    int returnHoleIndex;   //the first hole that should be re-opened following the player dying
 };
 
 #endif // OVERWORLD_H

@@ -32,7 +32,7 @@ Game::Game()
 
     window.setFramerateLimit(60);
 
-    level.loadNewLevel(0);
+    level.load();
     overworld.load();
 }
 
@@ -52,6 +52,17 @@ void Game::run()
         //maybe in future projects have the entity list just in the game class? and draw whichever entities are currently active
         switch (state) {
         case STATE_OVERWORLD:
+            if (overworldShip.getState() == OverworldShip::STATE_EXPLODING) {
+                overworldShip.setPosition(overworldShip.getReturnX(), overworldShip.getReturnY());
+                camera.follow(overworldShip, overworld);
+                for (int i = overworld.getReturnHoleIndex(); i < NUM_HOLES; i++)
+                    overworld.getHole(i)->setState(Hole::STATE_OPEN);
+                overworldShip.setState(OverworldShip::STATE_STILL);
+                level.cleanUpScreen();
+                setLevelNum(overworld.getReturnHoleIndex());
+                level.load();
+            }
+
             overworldShip.tick();
             overworld.tick();
             camera.follow(overworldShip, Game::overworld);
@@ -71,11 +82,17 @@ void Game::run()
                 overworldShip.setPosition(overworldShip.getReturnX(), overworldShip.getReturnY());
                 camera.follow(overworldShip, overworld);
                 state = STATE_OVERWORLD;
+                for (int i = overworld.getReturnHoleIndex(); i < NUM_HOLES; i++)
+                    overworld.getHole(i)->setState(Hole::STATE_OPEN);
+                overworldShip.setState(OverworldShip::STATE_STILL);
+                level.cleanUpScreen();
+                setLevelNum(overworld.getReturnHoleIndex());
+                level.load();
             } else if (getLevelNum() != getOldLevelNum()) {
                 //load new level if the player finished the current level
                 updateOldLevelNum();
                 level.cleanUpScreen();
-                level.loadNewLevel(getLevelNum());
+                level.load();
                 state = STATE_OVERWORLD;
             }
 

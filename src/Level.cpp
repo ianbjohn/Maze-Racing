@@ -9,9 +9,9 @@ Level::Level()
     //ctor
 }
 
-void Level::loadNewLevel(int levelIndex)
+void Level::load()
 {
-    Screen::loadNewScreen(levels.width[levelIndex], SCREEN_HEIGHT, levels.tiles[levelIndex]);
+    Screen::loadNewScreen(levels.width[Game::getLevelNum()], SCREEN_HEIGHT, levels.tiles[Game::getLevelNum()]);
 
     //move the ship to its new starting point
     Game::levelShip.setPosition(96, 96);

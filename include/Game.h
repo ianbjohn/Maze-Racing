@@ -8,13 +8,11 @@
 #include "LevelShip.h"
 #include "Overworld.h"
 #include "OverworldShip.h"
-#include "Hole.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define SCREEN_WIDTH_TILES 20
 #define SCREEN_HEIGHT_TILES 15
-#define NUM_HOLES 30
 
 class Level;
 
@@ -44,7 +42,6 @@ public:
 
     static LevelShip levelShip;
     static OverworldShip overworldShip;
-    static Hole holes[NUM_HOLES];
 
     static sf::RenderWindow window;
     static sf::Event event;

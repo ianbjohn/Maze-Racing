@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Game.h"
+#include "Hole.h"
 #include "OverworldData.h"
 #include "Overworld.h"
 
@@ -8,17 +9,36 @@ Overworld::Overworld()
 
 }
 
+Hole* Overworld::getHole(int i)
+{
+    return &holes[i];
+}
+
+//Make one of these for the level too if things besides just the screen tiles need to be loaded
 void Overworld::load()
 {
     Screen::loadNewScreen(2048, 2048, overworldData);
 
-    //move the ship to its starting position
-    Game::overworldShip.setPosition(480, 1952);
-    Game::overworldShip.setState(OverworldShip::STATE_STILL);
-    Game::overworldShip.setDir(Entity::DIR_UP);
+    //load the holes
+    for (int i = 0; i < NUM_HOLES; i++)
+        holes[i].setPosition(holeXs[i], holeYs[i]);
 
     //move the camera to the ship's starting point
     Game::camera.follow(Game::overworldShip, Game::overworld);
+}
+
+void Overworld::tick()
+{
+    for (int i = 0; i < NUM_HOLES; i++)
+        holes[i].tick();
+}
+
+void Overworld::drawScreen(sf::RenderWindow& w)
+{
+    Screen::drawScreen(w);
+
+    for (int i = 0; i < NUM_HOLES; i++)
+        holes[i].draw(w);
 }
 
 Overworld::~Overworld()

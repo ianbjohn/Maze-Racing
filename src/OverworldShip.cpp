@@ -6,8 +6,10 @@
 
 OverworldShip::OverworldShip()
 {
-    x = 0;
-    y = 0;
+    x = 480;
+    y = 1952;
+    returnX = x;
+    returnY = y;
     dir = DIR_UP;
     state = STATE_STILL;
 
@@ -17,6 +19,22 @@ OverworldShip::OverworldShip()
     rect.setSize(sf::Vector2f(width, height));
     rect.setTexture(&Game::resourceManager.overworldShipTexture);
     rect.setTextureRect(sf::IntRect(dirRectsX[dir], 0, 32, 32));
+}
+
+int OverworldShip::getReturnX()
+{
+    return returnX;
+}
+
+int OverworldShip::getReturnY()
+{
+    return returnY;
+}
+
+void OverworldShip::setReturnPosition(int x, int y)
+{
+    returnX = x;
+    returnY = y;
 }
 
 void OverworldShip::tick()

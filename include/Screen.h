@@ -9,6 +9,9 @@ public:
     Screen();
     virtual ~Screen();
 
+    int getWidth();
+    int getHeight();
+
     void loadNewScreen(int w, int h, const unsigned char* tileDataSource);
     int getScreenTile(int x, int y);
     void drawScreen(sf::RenderWindow& w);

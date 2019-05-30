@@ -45,12 +45,13 @@ void Game::run()
                 window.close();
         }
 
-        window.clear(sf::Color::White);
+        window.clear(sf::Color(192, 192, 192));
 
         //maybe in future projects have the entity list just in the game class? and draw whichever entities are currently active
         switch (state) {
         case STATE_OVERWORLD:
             overworldShip.tick();
+            overworld.tick();
             camera.follow(overworldShip, Game::overworld);
             overworld.drawScreen(window);
             overworldShip.draw(window);
@@ -64,9 +65,10 @@ void Game::run()
             level.drawScreen(window);
             levelShip.draw(window);
 
-            if (levelShip.getState() == LevelShip::STATE_EXPLODING)
+            if (levelShip.getState() == LevelShip::STATE_EXPLODING) {
+                overworldShip.setPosition(overworldShip.getReturnX(), overworldShip.getReturnY());
                 state = STATE_OVERWORLD;
-            else if (getLevelNum() != getOldLevelNum()) {
+            } else if (getLevelNum() != getOldLevelNum()) {
                 //load new level if the player finished the current level
                 updateOldLevelNum();
                 level.cleanUpScreen();

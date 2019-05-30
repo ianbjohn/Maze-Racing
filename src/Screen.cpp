@@ -7,6 +7,16 @@ Screen::Screen()
 
 }
 
+int Screen::getWidth()
+{
+    return width;
+}
+
+int Screen::getHeight()
+{
+    return height;
+}
+
 void Screen::loadNewScreen(int w, int h, const unsigned char* tileDataSource)
 {
     width = w;

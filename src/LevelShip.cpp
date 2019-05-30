@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Game.h"
 #include "Screen.h"
+#include "OverworldData.h"
 #include "LevelShip.h"
 
 LevelShip::LevelShip()
@@ -32,6 +33,15 @@ void LevelShip::tick()
         case DIR_DOWN:
             y += speed;
             break;
+        }
+
+        //if player finished level, load the next level, set new overworld ship position
+        if (x + width >= Game::level.getWidth()) {
+            Game::overworldShip.setPosition(holeNextShipXs[Game::getLevelNum()], holeNextShipYs[Game::getLevelNum()]);
+            Game::overworld.getHole(Game::getLevelNum())->setState(Hole::STATE_COVERED);
+            Game::setLevelNum(Game::getLevelNum() + 1);
+            Game::level.cleanUpScreen();
+            Game::level.loadNewLevel(Game::getLevelNum());
         }
 
         if (checkBackgroundCollision(Game::level) == 1) {

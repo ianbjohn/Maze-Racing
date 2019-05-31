@@ -5,7 +5,7 @@ const struct LevelData levels = {
     //width
     {2048, 2048, 2048, 2048, 2048, 2048, 2048, 2048},
     //pointers to tile data
-    {level0, level1, level2, level3, level4, level5, level6, level7};
+    {level0, level1, level2, level3, level4, level5, level6, level7}
 };
 
 const unsigned char level0[278] = {

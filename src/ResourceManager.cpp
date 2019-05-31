@@ -7,6 +7,7 @@ ResourceManager::ResourceManager()
     levelShipTexture.loadFromFile("gfx/levelship.png");
     holeTexture.loadFromFile("gfx/hole.png");
     coveredHoleTexture.loadFromFile("gfx/coveredhole.png");
+    savePointTexture.loadFromFile("gfx/savepoint.png");
 
     titleSong.openFromFile("music/title.ogg");
     titleSong.setLoop(true);

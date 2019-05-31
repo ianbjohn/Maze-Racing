@@ -1,18 +1,12 @@
-#include <iostream>
-#include "Screen.h"
-#include "Entity.h"
-#include "Level.h"
-#include "Overworld.h"
-#include "Camera.h"
-#include "LevelShip.h"
-#include "OverworldShip.h"
 #include "Game.h"
 
+bool Game::newGame;
 int Game::state;
 int Game::stateOld;
 int Game::levelNum;
 int Game::levelNumOld;
 ResourceManager Game::resourceManager;
+std::fstream Game::gameFile;
 Overworld Game::overworld;
 Level Game::level;
 Camera Game::camera;
@@ -25,15 +19,10 @@ Game::Game()
 {
     window.setIcon(32, 32, Game::resourceManager.holeTexture.copyToImage().getPixelsPtr());
 
-    state = STATE_OVERWORLD;    //change to TITLE later of course
+    state = STATE_TITLE;    //change to TITLE later of course
     stateOld = state;
-    levelNum = 0;
-    levelNumOld = 0;
 
     window.setFramerateLimit(60);
-
-    level.load();
-    overworld.load();
 }
 
 void Game::run()
@@ -51,6 +40,19 @@ void Game::run()
 
         //maybe in future projects have the entity list just in the game class? and draw whichever entities are currently active
         switch (state) {
+        case STATE_TITLE:
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+                //load a new game (TEMPORARY)
+                newGame = true;
+
+                levelNum = 0;
+                levelNumOld = 0;
+                level.load();
+                overworld.load();
+                state = STATE_OVERWORLD;
+            }
+
+            break;
         case STATE_OVERWORLD:
             if (overworldShip.getState() == OverworldShip::STATE_EXPLODING) {
                 overworldShip.setPosition(overworldShip.getReturnX(), overworldShip.getReturnY());
@@ -102,6 +104,11 @@ void Game::run()
         camera.draw(window);
         window.display();
     }
+}
+
+bool Game::checkIfNewGame()
+{
+    return newGame;
 }
 
 int Game::getState()

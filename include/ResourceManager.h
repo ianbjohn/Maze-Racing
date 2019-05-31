@@ -16,6 +16,7 @@ public:
     sf::Texture levelShipTexture;
     sf::Texture holeTexture;
     sf::Texture coveredHoleTexture;
+    sf::Texture savePointTexture;
     sf::Image icon;
 
     //sound/music

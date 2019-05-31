@@ -1,5 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
+#include <iostream>
+#include <fstream>
 #include "ResourceManager.h"
 #include "Camera.h"
 #include "Screen.h"
@@ -22,6 +24,7 @@ public:
     Game();
     virtual ~Game();
 
+    static bool checkIfNewGame();
     static int getState();
     static int getOldState();
     static int getLevelNum();
@@ -32,9 +35,10 @@ public:
     static void updateOldState();
     static void updateOldLevelNum();
 
-    enum States {STATE_TITLE, STATE_OVERWORLD, STATE_LEVEL, STATE_GAMEOVER, STATE_MSGBREAK, STATE_CREDITS};
+    enum States {STATE_TITLE, STATE_FILESELECT, STATE_OVERWORLD, STATE_LEVEL, STATE_GAMEOVER, STATE_MSGBREAK, STATE_CREDITS};
 
     static ResourceManager resourceManager;
+    static std::fstream gameFile;
 
     static Overworld overworld;
     static Level level;
@@ -48,6 +52,7 @@ public:
     static void run();
 
 private:
+    static bool newGame;    //1 - game has been loaded from a file
     static int state;
     static int stateOld;
     static int levelNum;

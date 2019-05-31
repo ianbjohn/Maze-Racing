@@ -3,6 +3,8 @@
 *.depend
 *.layout
 *.rc
+*.exe
+*.sav
 /bin
 /gfx
 /obj

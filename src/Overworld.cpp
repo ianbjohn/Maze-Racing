@@ -24,6 +24,10 @@ void Overworld::load()
 {
     Screen::loadNewScreen(2048, 2048, overworldData);
 
+    //load the save points
+    for (int i = 0; i < NUM_SAVEPOINTS; i++)
+        savePoints[i].setPosition(savePointXs[i], savePointYs[i]);
+
     //load the holes
     for (int i = 0; i < NUM_HOLES; i++)
         holes[i].setPosition(holeXs[i], holeYs[i]);
@@ -34,16 +38,22 @@ void Overworld::load()
 
 void Overworld::tick()
 {
-    for (int i = 0; i < NUM_HOLES; i++)
-        holes[i].tick();
+    for (Hole& h : holes)
+        h.tick();
+
+    for (SavePoint& s : savePoints)
+        s.tick();
 }
 
 void Overworld::drawScreen(sf::RenderWindow& w)
 {
     Screen::drawScreen(w);
 
-    for (int i = 0; i < NUM_HOLES; i++)
-        holes[i].draw(w);
+    for (Hole& h : holes)
+        h.draw(w);
+
+    for (SavePoint& s : savePoints)
+        s.draw(w);
 }
 
 Overworld::~Overworld()

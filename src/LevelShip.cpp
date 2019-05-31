@@ -37,6 +37,9 @@ void LevelShip::tick()
 
         //if player finished level, load the next level, set new overworld ship position
         if (x + width >= Game::level.getWidth()) {
+            //v-- probably not best practice to hard-code this stuff, but we have like 5 songs so I think its OK
+            Game::resourceManager.mainSong.stop();
+
             Game::overworldShip.setPosition(holeNextShipXs[Game::getLevelNum()], holeNextShipYs[Game::getLevelNum()]);
             Game::overworld.getHole(Game::getLevelNum())->setState(Hole::STATE_COVERED);
             Game::setLevelNum(Game::getLevelNum() + 1);
@@ -46,6 +49,7 @@ void LevelShip::tick()
 
         if (checkBackgroundCollision(Game::level) == 1) {
             state = STATE_EXPLODING;
+            Game::resourceManager.mainSong.stop();
             break;
         }
 

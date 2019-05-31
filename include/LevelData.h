@@ -1,7 +1,7 @@
 #ifndef LEVELDATA_H_INCLUDED
 #define LEVELDATA_H_INCLUDED
 
-#define NUM_LEVELS 5
+#define NUM_LEVELS 8
 
 //structure of arrays :)
 struct LevelData
@@ -18,6 +18,8 @@ extern const unsigned char level1[358];
 extern const unsigned char level2[314];
 extern const unsigned char level3[122];
 extern const unsigned char level4[326];
-
+extern const unsigned char level5[246];
+extern const unsigned char level6[318];
+extern const unsigned char level7[262];
 
 #endif // LEVELDATA_H_INCLUDED

@@ -18,6 +18,7 @@ void Hole::tick()
             Game::levelShip.setPosition(96, 96);
             Game::levelShip.setState(LevelShip::STATE_MOVING);
             Game::levelShip.setDir(LevelShip::DIR_RIGHT);
+            Game::resourceManager.mainSong.play();
         }
         rect.setTexture(&Game::resourceManager.holeTexture);
         break;

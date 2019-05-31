@@ -1,8 +1,8 @@
 #ifndef LEVELSHIP_H
 #define LEVELSHIP_H
 #include "Entity.h"
-#define STARTING_SPEED 3.5
-#define MOVING_SPEED .785 * STARTING_SPEED
+#define STARTING_SPEED 2.6      //maybe make this a variable so the ship can get faster as the levels progress
+#define MOVING_SPEED .785 * STARTING_SPEED      //move at a 45 degree angle
 
 class LevelShip : public Entity
 {

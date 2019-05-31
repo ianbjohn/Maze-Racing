@@ -1,6 +1,0 @@
-#ifndef HOLEDATA_H_INCLUDED
-#define HOLEDATA_H_INCLUDED
-
-
-
-#endif // HOLEDATA_H_INCLUDED

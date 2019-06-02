@@ -7,6 +7,7 @@ int Game::levelNum;
 int Game::levelNumOld;
 ResourceManager Game::resourceManager;
 std::fstream Game::gameFile;
+sf::RectangleShape Game::titleRect;
 Overworld Game::overworld;
 Level Game::level;
 Camera Game::camera;
@@ -19,8 +20,14 @@ Game::Game()
 {
     window.setIcon(32, 32, Game::resourceManager.holeTexture.copyToImage().getPixelsPtr());
 
-    state = STATE_TITLE;    //change to TITLE later of course
+    state = STATE_TITLE;
     stateOld = state;
+
+    resourceManager.titleTexture.loadFromFile("gfx/title.png");
+    titleRect.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+    titleRect.setPosition(-(SCREEN_WIDTH / 2), -(SCREEN_HEIGHT / 2));
+    titleRect.setTexture(&resourceManager.titleTexture);
+    resourceManager.titleSong.play();
 
     window.setFramerateLimit(60);
 }
@@ -45,12 +52,15 @@ void Game::run()
                 //load a new game (TEMPORARY)
                 newGame = true;
 
+                resourceManager.titleSong.stop();
                 levelNum = 0;
                 levelNumOld = 0;
                 level.load();
                 overworld.load();
                 state = STATE_OVERWORLD;
             }
+
+            window.draw(titleRect);
 
             break;
         case STATE_OVERWORLD:

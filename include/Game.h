@@ -40,6 +40,8 @@ public:
     static ResourceManager resourceManager;
     static std::fstream gameFile;
 
+    static sf::RectangleShape titleRect;
+
     static Overworld overworld;
     static Level level;
     static Camera camera;

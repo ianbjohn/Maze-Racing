@@ -5,8 +5,11 @@ int Game::state;
 int Game::stateOld;
 int Game::levelNum;
 int Game::levelNumOld;
+int Game::saveFileIndex;
+const sf::Color Game::backgroundColors[6] = {sf::Color::Blue, sf::Color::Blue, sf::Color(192, 192, 192), sf::Color(192, 192, 192), sf::Color(192, 192, 192), sf::Color::Black};
 ResourceManager Game::resourceManager;
 std::fstream Game::gameFile;
+const char* Game::saveFileNames[3] = {"savefile0.sav", "savefile1.sav", "savefile2.sav"};
 sf::RectangleShape Game::titleRect;
 Overworld Game::overworld;
 Level Game::level;
@@ -43,8 +46,7 @@ void Game::run()
                 window.close();
         }
 
-        window.clear(sf::Color(192, 192, 192));
-
+        window.clear(backgroundColors[state]);
         //maybe in future projects have the entity list just in the game class? and draw whichever entities are currently active
         switch (state) {
         case STATE_TITLE:
@@ -57,11 +59,23 @@ void Game::run()
                 levelNumOld = 0;
                 level.load();
                 overworld.load();
-                state = STATE_OVERWORLD;
+                state = STATE_FILESELECT;
             }
 
             window.draw(titleRect);
 
+            break;
+        case STATE_FILESELECT:
+            //check if 3 save files exist
+            //if they do, draw each of their data (Only do this once, maybe make a function pointer to "Init" routines for each state)
+            //if one doesn't display it as "new game"
+
+            //if the player selects a save
+                //if the file for that save exists
+                    //if the checksum at the end of the file doesn't match up, throw a "file seems to be corrupted" error.
+                    //otherwise load the data and go to the overworld state
+                //else
+                    //start a new game and go to the overworld state
             break;
         case STATE_OVERWORLD:
             if (overworldShip.getState() == OverworldShip::STATE_EXPLODING) {
@@ -141,6 +155,11 @@ int Game::getOldLevelNum()
     return levelNumOld;
 }
 
+int Game::getSaveFileIndex()
+{
+    return saveFileIndex;
+}
+
 void Game::setState(int s)
 {
     state = s;
@@ -159,6 +178,11 @@ void Game::updateOldState()
 void Game::updateOldLevelNum()
 {
     levelNumOld = levelNum;
+}
+
+void Game::setSaveFileIndex(int i)
+{
+    saveFileIndex = i;
 }
 
 Game::~Game()

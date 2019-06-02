@@ -29,16 +29,19 @@ public:
     static int getOldState();
     static int getLevelNum();
     static int getOldLevelNum();
+    static int getSaveFileIndex();
 
     static void setState(int state);
     static void setLevelNum(int l);
     static void updateOldState();
     static void updateOldLevelNum();
+    static void setSaveFileIndex(int i);
 
-    enum States {STATE_TITLE, STATE_FILESELECT, STATE_OVERWORLD, STATE_LEVEL, STATE_GAMEOVER, STATE_MSGBREAK, STATE_CREDITS};
+    enum States {STATE_TITLE, STATE_FILESELECT, STATE_OVERWORLD, STATE_LEVEL, STATE_MSGBREAK, STATE_CREDITS};
 
     static ResourceManager resourceManager;
     static std::fstream gameFile;
+    static const char* saveFileNames[3];
 
     static sf::RectangleShape titleRect;
 
@@ -59,6 +62,9 @@ private:
     static int stateOld;
     static int levelNum;
     static int levelNumOld;
+    static int saveFileIndex;
+
+    static const sf::Color backgroundColors[6];
 };
 
 #endif // GAME_H

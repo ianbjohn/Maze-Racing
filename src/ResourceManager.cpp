@@ -8,6 +8,8 @@ ResourceManager::ResourceManager()
     holeTexture.loadFromFile("gfx/hole.png");
     coveredHoleTexture.loadFromFile("gfx/coveredhole.png");
     savePointTexture.loadFromFile("gfx/savepoint.png");
+    titleTexture.loadFromFile("gfx/title.png");
+    saveFileTexture.loadFromFile("gfx/savefile.png");
 
     titleSong.openFromFile("music/title.ogg");
     titleSong.setLoop(true);

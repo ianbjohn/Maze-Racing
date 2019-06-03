@@ -10,6 +10,7 @@ const sf::Color Game::backgroundColors[6] = {sf::Color::Blue, sf::Color::Blue, s
 ResourceManager Game::resourceManager;
 std::fstream Game::gameFile;
 const char* Game::saveFileNames[3] = {"savefile0.sav", "savefile1.sav", "savefile2.sav"};
+SaveFile Game::saveFiles[3] = {{20, 90, 0}, {20, 190, 1}, {20, 290, 2}};
 sf::RectangleShape Game::titleRect;
 Overworld Game::overworld;
 Level Game::level;
@@ -26,9 +27,8 @@ Game::Game()
     state = STATE_TITLE;
     stateOld = state;
 
-    resourceManager.titleTexture.loadFromFile("gfx/title.png");
     titleRect.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-    titleRect.setPosition(-(SCREEN_WIDTH / 2), -(SCREEN_HEIGHT / 2));
+    titleRect.setPosition(0, 0);
     titleRect.setTexture(&resourceManager.titleTexture);
     resourceManager.titleSong.play();
 
@@ -55,10 +55,6 @@ void Game::run()
                 newGame = true;
 
                 resourceManager.titleSong.stop();
-                levelNum = 0;
-                levelNumOld = 0;
-                level.load();
-                overworld.load();
                 state = STATE_FILESELECT;
             }
 
@@ -66,16 +62,11 @@ void Game::run()
 
             break;
         case STATE_FILESELECT:
-            //check if 3 save files exist
-            //if they do, draw each of their data (Only do this once, maybe make a function pointer to "Init" routines for each state)
-            //if one doesn't display it as "new game"
+            for (int i = 0; i < NUM_SAVEFILES; i++) {
+                saveFiles[i].tick();
+                saveFiles[i].draw(window);
+            }
 
-            //if the player selects a save
-                //if the file for that save exists
-                    //if the checksum at the end of the file doesn't match up, throw a "file seems to be corrupted" error.
-                    //otherwise load the data and go to the overworld state
-                //else
-                    //start a new game and go to the overworld state
             break;
         case STATE_OVERWORLD:
             if (overworldShip.getState() == OverworldShip::STATE_EXPLODING) {
@@ -97,6 +88,7 @@ void Game::run()
 
             //if the ship hit a hole, go to the level
 
+            camera.draw(window);
             break;
         case STATE_LEVEL:
             levelShip.tick();
@@ -122,10 +114,10 @@ void Game::run()
                 state = STATE_OVERWORLD;
             }
 
+            camera.draw(window);
             break;
         }
 
-        camera.draw(window);
         window.display();
     }
 }

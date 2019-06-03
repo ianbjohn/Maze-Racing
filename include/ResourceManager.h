@@ -18,6 +18,7 @@ public:
     sf::Texture coveredHoleTexture;
     sf::Texture savePointTexture;
     sf::Texture titleTexture;
+    sf::Texture saveFileTexture;
     sf::Image icon;
 
     //sound/music

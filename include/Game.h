@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include "ResourceManager.h"
+#include "SaveFile.h"
 #include "Camera.h"
 #include "Screen.h"
 #include "Entity.h"
@@ -15,8 +16,10 @@
 #define SCREEN_HEIGHT 480
 #define SCREEN_WIDTH_TILES 20
 #define SCREEN_HEIGHT_TILES 15
+#define NUM_SAVEFILES 3
 
 class Level;
+class SaveFile;
 
 class Game
 {
@@ -42,6 +45,7 @@ public:
     static ResourceManager resourceManager;
     static std::fstream gameFile;
     static const char* saveFileNames[3];
+    static SaveFile saveFiles[3];
 
     static sf::RectangleShape titleRect;
 

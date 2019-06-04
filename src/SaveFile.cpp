@@ -68,6 +68,8 @@ void SaveFile::tick()
                 Game::setLevelNum(level);
                 Game::setOldLevelNum(level);
                 Game::overworldShip.setPosition(holeNextShipXs[level - 1], holeNextShipYs[level - 1]);
+                Game::overworldShip.setReturnPosition(holeNextShipXs[level - 1], holeNextShipYs[level - 1]);
+                Game::overworld.setReturnIndex(level);
             }
             Game::setSaveFileIndex(index);
             Game::level.load();

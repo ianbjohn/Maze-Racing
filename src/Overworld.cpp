@@ -19,6 +19,11 @@ int Overworld::getReturnHoleIndex()
     return returnHoleIndex;
 }
 
+void Overworld::setReturnIndex(int i)
+{
+    returnHoleIndex = i;
+}
+
 //Make one of these for the level too if things besides just the screen tiles need to be loaded
 void Overworld::load()
 {

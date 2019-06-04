@@ -17,6 +17,8 @@ public:
     Hole* getHole(int i);
     int getReturnHoleIndex();
 
+    void setReturnIndex(int i);
+
     void load();
     void tick();
 

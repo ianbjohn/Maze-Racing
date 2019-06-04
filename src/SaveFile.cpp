@@ -26,24 +26,14 @@ SaveFile::SaveFile(int x, int y, int index)
         Game::gameFile.open(Game::saveFileNames[index], std::fstream::in | std::fstream::binary);
         //(make sure checksum "checks :^)" out)
         //get start time
-        //ABSOLUTE BEAUTY. If I can find a better way to do this, I will
-        Game::gameFile.read((char* ) &(startTime.tm_year), sizeof(int));
-        Game::gameFile.read((char* ) &(startTime.tm_mon),  sizeof(int));
-        Game::gameFile.read((char* ) &(startTime.tm_mday), sizeof(int));
-        Game::gameFile.read((char* ) &(startTime.tm_hour), sizeof(int));
-        Game::gameFile.read((char* ) &(startTime.tm_min),  sizeof(int));
-        Game::gameFile.read((char* ) &(startTime.tm_sec),  sizeof(int));
+        Game::gameFile.read((char* ) &startTime, sizeof(struct tm));
         //get time last saved
-        Game::gameFile.read((char* ) &(currentTime.tm_year), sizeof(int));
-        Game::gameFile.read((char* ) &(currentTime.tm_mon),  sizeof(int));
-        Game::gameFile.read((char* ) &(currentTime.tm_mday), sizeof(int));
-        Game::gameFile.read((char* ) &(currentTime.tm_hour), sizeof(int));
-        Game::gameFile.read((char* ) &(currentTime.tm_min),  sizeof(int));
-        Game::gameFile.read((char* ) &(currentTime.tm_sec),  sizeof(int));
+        Game::gameFile.read((char* ) &currentTime, sizeof(struct tm));
         //get level
         Game::gameFile.read((char* ) &level, sizeof(char));
         Game::gameFile.close();
 
+        //ABSOLUTE BEAUTY. If I can find a better way to do this, I will
         fileText += std::to_string(startTime.tm_mon + 1);
         fileText += "/";
         fileText += std::to_string(startTime.tm_mday);

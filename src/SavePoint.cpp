@@ -22,19 +22,9 @@ void SavePoint::tick()
             std::memcpy(&Game::currentTime, localtime(&Game::currentTimer), sizeof(struct tm));
 
             //date/time of when we started playing
-            Game::gameFile.write((char* ) &(Game::startTime.tm_year), sizeof(int));
-            Game::gameFile.write((char* ) &(Game::startTime.tm_mon),  sizeof(int));
-            Game::gameFile.write((char* ) &(Game::startTime.tm_mday), sizeof(int));
-            Game::gameFile.write((char* ) &(Game::startTime.tm_hour), sizeof(int));
-            Game::gameFile.write((char* ) &(Game::startTime.tm_min),  sizeof(int));
-            Game::gameFile.write((char* ) &(Game::startTime.tm_sec),  sizeof(int));
+            Game::gameFile.write((char* ) &Game::startTime, sizeof(struct tm));
             //date/time of when we're saving
-            Game::gameFile.write((char* ) &(Game::currentTime.tm_year), sizeof(int));
-            Game::gameFile.write((char* ) &(Game::currentTime.tm_mon),  sizeof(int));
-            Game::gameFile.write((char* ) &(Game::currentTime.tm_mday), sizeof(int));
-            Game::gameFile.write((char* ) &(Game::currentTime.tm_hour), sizeof(int));
-            Game::gameFile.write((char* ) &(Game::currentTime.tm_min),  sizeof(int));
-            Game::gameFile.write((char* ) &(Game::currentTime.tm_sec),  sizeof(int));
+            Game::gameFile.write((char* ) &Game::currentTime, sizeof(struct tm));
             //level
             char writeLevel = (char) Game::getLevelNum();
             Game::gameFile.write(&writeLevel, sizeof(char));     //maybe change level to a byte later, but not a huge deal

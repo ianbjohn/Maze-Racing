@@ -21,15 +21,55 @@ SaveFile::SaveFile(int x, int y, int index)
     text.setPosition(x + 4, y + 4);
     struct stat buffer;
     if (stat(Game::saveFileNames[index], &buffer) == 0) {
-        //std::string fileText = "";
+        std::string fileText = "Start: ";
         newFile = false;
         Game::gameFile.open(Game::saveFileNames[index], std::fstream::in | std::fstream::binary);
-        int readInt;
-        //(make sure checksum "checks :^)" out
-        Game::gameFile.read((char* ) &readInt, sizeof(char));
-        level = readInt;
-        text.setString(std::to_string(level));
+        //(make sure checksum "checks :^)" out)
+        //get start time
+        //ABSOLUTE BEAUTY. If I can find a better way to do this, I will
+        Game::gameFile.read((char* ) &(startTime.tm_year), sizeof(int));
+        Game::gameFile.read((char* ) &(startTime.tm_mon),  sizeof(int));
+        Game::gameFile.read((char* ) &(startTime.tm_mday), sizeof(int));
+        Game::gameFile.read((char* ) &(startTime.tm_hour), sizeof(int));
+        Game::gameFile.read((char* ) &(startTime.tm_min),  sizeof(int));
+        Game::gameFile.read((char* ) &(startTime.tm_sec),  sizeof(int));
+        //get time last saved
+        Game::gameFile.read((char* ) &(currentTime.tm_year), sizeof(int));
+        Game::gameFile.read((char* ) &(currentTime.tm_mon),  sizeof(int));
+        Game::gameFile.read((char* ) &(currentTime.tm_mday), sizeof(int));
+        Game::gameFile.read((char* ) &(currentTime.tm_hour), sizeof(int));
+        Game::gameFile.read((char* ) &(currentTime.tm_min),  sizeof(int));
+        Game::gameFile.read((char* ) &(currentTime.tm_sec),  sizeof(int));
+        //get level
+        Game::gameFile.read((char* ) &level, sizeof(char));
         Game::gameFile.close();
+
+        fileText += std::to_string(startTime.tm_mon + 1);
+        fileText += "/";
+        fileText += std::to_string(startTime.tm_mday);
+        fileText += "/";
+        fileText += std::to_string(startTime.tm_year + 1900);
+        fileText += "  ";
+        fileText += std::to_string(startTime.tm_hour);
+        fileText += ":";
+        fileText += std::to_string(startTime.tm_min);
+        fileText += ":";
+        fileText += std::to_string(startTime.tm_sec);
+        fileText += "\nLast Saved: ";
+        fileText += std::to_string(currentTime.tm_mon + 1);
+        fileText += "/";
+        fileText += std::to_string(currentTime.tm_mday);
+        fileText += "/";
+        fileText += std::to_string(currentTime.tm_year + 1900);
+        fileText += "  ";
+        fileText += std::to_string(currentTime.tm_hour);
+        fileText += ":";
+        fileText += std::to_string(currentTime.tm_min);
+        fileText += ":";
+        fileText += std::to_string(currentTime.tm_sec);
+        fileText += "\nLevel ";
+        fileText += std::to_string(level);
+        text.setString(fileText);
     } else {
         text.setString("New File");
         newFile = true;
@@ -64,7 +104,23 @@ void SaveFile::tick()
             if (newFile == true) {
                 Game::setLevelNum(0);
                 Game::setOldLevelNum(0);
+                //get the start date of the
+                time(&startTimer);
+                std::memcpy(&startTime, localtime(&startTimer), sizeof(struct tm));
+                Game::startTime = startTime;
             } else {
+                Game::startTime.tm_year = startTime.tm_year;
+                Game::startTime.tm_mon = startTime.tm_mon;
+                Game::startTime.tm_mday = startTime.tm_mday;
+                Game::startTime.tm_hour = startTime.tm_hour;
+                Game::startTime.tm_min = startTime.tm_min;
+                Game::startTime.tm_sec = startTime.tm_sec;
+                Game::currentTime.tm_year = currentTime.tm_year;
+                Game::currentTime.tm_mon = currentTime.tm_mon;
+                Game::currentTime.tm_mday = currentTime.tm_mday;
+                Game::currentTime.tm_hour = currentTime.tm_hour;
+                Game::currentTime.tm_min = currentTime.tm_min;
+                Game::currentTime.tm_sec = currentTime.tm_sec;
                 Game::setLevelNum(level);
                 Game::setOldLevelNum(level);
                 Game::overworldShip.setPosition(holeNextShipXs[level - 1], holeNextShipYs[level - 1]);

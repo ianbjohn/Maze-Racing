@@ -27,6 +27,10 @@ private:
     bool newFile;
 
     //save file data
+    time_t startTimer;
+    time_t currentTimer;
+    struct tm startTime;
+    struct tm currentTime;
     int level;
 
     sf::RectangleShape rect;

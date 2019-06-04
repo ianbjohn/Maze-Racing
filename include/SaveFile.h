@@ -1,7 +1,11 @@
 #ifndef SAVEFILE_H
 #define SAVEFILE_H
 
+#include <sys/stat.h>
+#include <string>
+#include <SFML/Graphics.hpp>
 #include "Game.h"
+#include "OverworldData.h"
 
 #define WIDTH 600
 #define HEIGHT 80
@@ -20,7 +24,13 @@ public:
 
 private:
     int x, y, index;
+    bool newFile;
+
+    //save file data
+    int level;
+
     sf::RectangleShape rect;
+    sf::Text text;
 };
 
 #endif // SAVEFILE_H

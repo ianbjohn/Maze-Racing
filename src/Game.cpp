@@ -162,6 +162,11 @@ void Game::setLevelNum(int l)
     levelNum = l;
 }
 
+void Game::setOldLevelNum(int l)
+{
+    levelNumOld = l;
+}
+
 void Game::updateOldState()
 {
     stateOld = state;

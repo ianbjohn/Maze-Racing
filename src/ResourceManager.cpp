@@ -11,6 +11,8 @@ ResourceManager::ResourceManager()
     titleTexture.loadFromFile("gfx/title.png");
     saveFileTexture.loadFromFile("gfx/savefile.png");
 
+    font.loadFromFile("gfx/ARIALN.ttf");
+
     titleSong.openFromFile("music/title.ogg");
     titleSong.setLoop(true);
     mainSong.openFromFile("music/main_song.ogg");

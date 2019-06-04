@@ -16,12 +16,11 @@ void SavePoint::tick()
 {
     if (checkEntityCollision(Game::overworldShip) == 1) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-            //the number at the end of the savefile name should correspond to the savefile index
-            Game::gameFile.open("savefile0.sav", std::fstream::out | std::fstream::binary);
+            Game::gameFile.open(Game::saveFileNames[Game::getSaveFileIndex()], std::fstream::out | std::fstream::binary);
             int writeInt = Game::getLevelNum();
-            Game::gameFile.write((char* ) &writeInt, sizeof(int));
+            Game::gameFile.write((char* ) &writeInt, sizeof(char));
             //Add time spent playing
-            //Add data / time we started playing, etc
+            //Add date / time we started playing, etc
             //Add a checksum at the end
             Game::gameFile.close();
             std::cout << "File saved." << std::endl;

@@ -29,8 +29,11 @@ void Overworld::load()
         savePoints[i].setPosition(savePointXs[i], savePointYs[i]);
 
     //load the holes
-    for (int i = 0; i < NUM_HOLES; i++)
+    for (int i = 0; i < NUM_HOLES; i++) {
         holes[i].setPosition(holeXs[i], holeYs[i]);
+        if (i < Game::getLevelNum())
+            holes[i].setState(Hole::STATE_COVERED);
+    }
 
     //move the camera to the ship's starting point
     Game::camera.follow(Game::overworldShip, Game::overworld);

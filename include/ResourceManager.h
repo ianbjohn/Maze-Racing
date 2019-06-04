@@ -21,6 +21,9 @@ public:
     sf::Texture saveFileTexture;
     sf::Image icon;
 
+    //fonts
+    sf::Font font;
+
     //sound/music
     sf::Music titleSong;
     sf::Music mainSong;

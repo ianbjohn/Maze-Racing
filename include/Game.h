@@ -36,6 +36,7 @@ public:
 
     static void setState(int state);
     static void setLevelNum(int l);
+    static void setOldLevelNum(int l);
     static void updateOldState();
     static void updateOldLevelNum();
     static void setSaveFileIndex(int i);

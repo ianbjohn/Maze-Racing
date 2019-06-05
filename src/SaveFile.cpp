@@ -29,6 +29,8 @@ SaveFile::SaveFile(int x, int y, int index)
         Game::gameFile.read((char* ) &startTime, sizeof(struct tm));
         //get time last saved
         Game::gameFile.read((char* ) &currentTime, sizeof(struct tm));
+        //get time spent playing
+        Game::gameFile.read((char* ) &timeSpentPlaying, sizeof(float));
         //get level
         Game::gameFile.read((char* ) &level, sizeof(char));
         Game::gameFile.close();
@@ -57,6 +59,12 @@ SaveFile::SaveFile(int x, int y, int index)
         fileText += std::to_string(currentTime.tm_min);
         fileText += ":";
         fileText += std::to_string(currentTime.tm_sec);
+        fileText += "    Time Spent Playing: ";
+        fileText += std::to_string(((int) timeSpentPlaying) / 60 / 60);   //hours
+        fileText += ":";
+        fileText += std::to_string(((int) timeSpentPlaying / 60) % 60); //minutes
+        fileText += ":";
+        fileText += std::to_string(((int) timeSpentPlaying) % 60);      //seconds
         fileText += "\nLevel ";
         fileText += std::to_string(level);
         text.setString(fileText);
@@ -91,26 +99,15 @@ void SaveFile::tick()
             //else
                 //start a new game and go to the overworld state
             std::cout << "clicked " << index << std::endl;
+            clock.restart();
             if (newFile == true) {
+                timeSpentPlaying = 0.0f;
                 Game::setLevelNum(0);
                 Game::setOldLevelNum(0);
-                //get the start date of the
+                //get the start date of the file
                 time(&startTimer);
                 std::memcpy(&startTime, localtime(&startTimer), sizeof(struct tm));
-                Game::startTime = startTime;
             } else {
-                Game::startTime.tm_year = startTime.tm_year;
-                Game::startTime.tm_mon = startTime.tm_mon;
-                Game::startTime.tm_mday = startTime.tm_mday;
-                Game::startTime.tm_hour = startTime.tm_hour;
-                Game::startTime.tm_min = startTime.tm_min;
-                Game::startTime.tm_sec = startTime.tm_sec;
-                Game::currentTime.tm_year = currentTime.tm_year;
-                Game::currentTime.tm_mon = currentTime.tm_mon;
-                Game::currentTime.tm_mday = currentTime.tm_mday;
-                Game::currentTime.tm_hour = currentTime.tm_hour;
-                Game::currentTime.tm_min = currentTime.tm_min;
-                Game::currentTime.tm_sec = currentTime.tm_sec;
                 Game::setLevelNum(level);
                 Game::setOldLevelNum(level);
                 Game::overworldShip.setPosition(holeNextShipXs[level - 1], holeNextShipYs[level - 1]);

@@ -16,6 +16,14 @@ public:
     SaveFile(int x, int y, int index);
     virtual ~SaveFile();
 
+    //save file data
+    time_t startTimer;
+    time_t currentTimer;
+    struct tm startTime;
+    struct tm currentTime;
+    float timeSpentPlaying;     //in seconds
+    sf::Clock clock;
+
     int getX();
     int getY();
     int getIndex();
@@ -26,11 +34,6 @@ private:
     int x, y, index;
     bool newFile;
 
-    //save file data
-    time_t startTimer;
-    time_t currentTimer;
-    struct tm startTime;
-    struct tm currentTime;
     int level;
 
     sf::RectangleShape rect;

@@ -50,11 +50,6 @@ public:
     static const char* saveFileNames[3];
     static SaveFile saveFiles[3];
 
-    static time_t startTimer;
-    static time_t currentTimer;
-    static struct tm startTime;
-    static struct tm currentTime;
-
     static sf::RectangleShape titleRect;
 
     static Overworld overworld;

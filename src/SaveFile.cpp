@@ -6,6 +6,8 @@ SaveFile::SaveFile(int x, int y, int index)
     this->y = y;
     this->index = index;
 
+    corrupted = false;
+
     rect.setPosition(x, y);
     rect.setSize(sf::Vector2f(WIDTH, HEIGHT));
     rect.setTexture(&Game::resourceManager.saveFileTexture);
@@ -19,20 +21,43 @@ SaveFile::SaveFile(int x, int y, int index)
     text.setCharacterSize(20);
     text.setFillColor(sf::Color::Black);
     text.setPosition(x + 4, y + 4);
-    struct stat buffer;
-    if (stat(Game::saveFileNames[index], &buffer) == 0) {
+    struct stat stats;
+    if (stat(Game::saveFileNames[index], &stats) == 0) {
+        Game::gameFile.open(Game::saveFileNames[index], std::fstream::in | std::fstream::binary);
+
+        //make sure the file size is correct
+        Game::gameFile.seekg(0, Game::gameFile.end);
+        int size = Game::gameFile.tellg();
+        if (size != FILE_SIZE) {
+            text.setString("CORRUPTED");
+            corrupted = true;
+            return;
+        }
+
+        //load file into buffer to make sure checksum matches and file isn't corrupted
+        Game::gameFile.seekg(0, Game::gameFile.beg);
+        unsigned char fileBuffer[FILE_SIZE];
+        Game::gameFile.read((char* ) fileBuffer, FILE_SIZE);
+
+        int checksum = *((int* ) &fileBuffer[FILE_SIZE - sizeof(int)]);
+        //std::cout << "Checksum: " << checksum << std::endl;
+        int checksumTest = 0;
+        for (unsigned int i = 0; i < FILE_SIZE - sizeof(int); i++)
+            checksumTest += (unsigned char) fileBuffer[i];
+        //std::cout << "ChecksumTest: " << checksumTest << std::endl;
+        if (checksumTest != checksum) {
+            text.setString("CORRUPTED");
+            corrupted = true;
+            return;
+        }
+
         std::string fileText = "Start: ";
         newFile = false;
-        Game::gameFile.open(Game::saveFileNames[index], std::fstream::in | std::fstream::binary);
-        //(make sure checksum "checks :^)" out)
-        //get start time
-        Game::gameFile.read((char* ) &startTime, sizeof(struct tm));
-        //get time last saved
-        Game::gameFile.read((char* ) &currentTime, sizeof(struct tm));
-        //get time spent playing
-        Game::gameFile.read((char* ) &timeSpentPlaying, sizeof(float));
-        //get level
-        Game::gameFile.read((char* ) &level, sizeof(char));
+        //get data from save file
+        std::memcpy(&startTime,         &fileBuffer[0],                                         sizeof(struct tm));
+        std::memcpy(&currentTime,       &fileBuffer[sizeof(struct tm)],                         sizeof(struct tm));
+        std::memcpy(&timeSpentPlaying,  &fileBuffer[2 * sizeof(struct tm)],                     sizeof(float));
+        std::memcpy(&level,             &fileBuffer[(2 * sizeof(struct tm)) + sizeof(float)],   sizeof(char));
         Game::gameFile.close();
 
         //ABSOLUTE BEAUTY. If I can find a better way to do this, I will
@@ -93,12 +118,9 @@ void SaveFile::tick()
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
         if (sf::Mouse::getPosition(Game::window).x >= x && sf::Mouse::getPosition(Game::window).x < x + WIDTH && sf::Mouse::getPosition(Game::window).y >= y && sf::Mouse::getPosition(Game::window).y < y + HEIGHT) {
-            //if the file for this save exists
-                //if the checksum at the end of the file doesn't match up, throw a "file seems to be corrupted" error.
-                //otherwise load the data and go to the overworld state
-            //else
-                //start a new game and go to the overworld state
-            std::cout << "clicked " << index << std::endl;
+            if (corrupted == true)
+                return;
+
             clock.restart();
             if (newFile == true) {
                 timeSpentPlaying = 0.0f;

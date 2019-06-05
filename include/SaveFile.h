@@ -7,6 +7,8 @@
 #include "Game.h"
 #include "OverworldData.h"
 
+#define FILE_SIZE 81        //each file is 81 bytes
+
 #define WIDTH 600
 #define HEIGHT 80
 
@@ -33,6 +35,7 @@ public:
 private:
     int x, y, index;
     bool newFile;
+    bool corrupted;
 
     int level;
 

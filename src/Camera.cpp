@@ -20,6 +20,13 @@ float Camera::getY()
     return y;
 }
 
+void Camera::setPosition(float x, float y)
+{
+    this->x = x;
+    this->y = y;
+    view.setCenter(x + (SCREEN_WIDTH / 2), y + (SCREEN_HEIGHT / 2));
+}
+
 void Camera::follow(Entity& e, Screen& s)
 {
     //put the ship in the center of the camera view, unless he's at one of the corners of the room

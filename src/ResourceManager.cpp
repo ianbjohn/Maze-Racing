@@ -10,6 +10,7 @@ ResourceManager::ResourceManager()
     savePointTexture.loadFromFile("gfx/savepoint.png");
     titleTexture.loadFromFile("gfx/title.png");
     saveFileTexture.loadFromFile("gfx/savefile.png");
+    arrowSignTexture.loadFromFile("gfx/arrowsign.png");
 
     font.loadFromFile("gfx/ARIALN.ttf");
 

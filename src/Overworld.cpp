@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Game.h"
-#include "Hole.h"
 #include "OverworldData.h"
 #include "Overworld.h"
 
@@ -40,6 +39,9 @@ void Overworld::load()
             holes[i].setState(Hole::STATE_COVERED);
     }
 
+    //arrow sign's X and Y are already set in its constructor
+    //tutorial hole's X and Y are already set in its constructor
+
     //move the camera to the ship's starting point
     Game::camera.follow(Game::overworldShip, Game::overworld);
 }
@@ -51,6 +53,8 @@ void Overworld::tick()
 
     for (SavePoint& s : savePoints)
         s.tick();
+
+    tutorialHole.tick();
 }
 
 void Overworld::drawScreen(sf::RenderWindow& w)
@@ -62,6 +66,9 @@ void Overworld::drawScreen(sf::RenderWindow& w)
 
     for (SavePoint& s : savePoints)
         s.draw(w);
+
+    arrowSign.draw(w);
+    tutorialHole.draw(w);
 }
 
 Overworld::~Overworld()

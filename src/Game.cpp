@@ -6,15 +6,16 @@ int Game::stateOld;
 int Game::levelNum;
 int Game::levelNumOld;
 int Game::saveFileIndex;
-const sf::Color Game::backgroundColors[6] = {sf::Color::Blue, sf::Color::Blue, sf::Color(192, 192, 192), sf::Color(192, 192, 192), sf::Color(192, 192, 192), sf::Color::Black};
+const sf::Color Game::backgroundColors[NUM_GAMESTATES] = {sf::Color::Blue, sf::Color::Blue, sf::Color(192, 192, 192), sf::Color(0, 192, 192), sf::Color(192, 192, 192), sf::Color(192, 192, 192), sf::Color::Black};
 ResourceManager Game::resourceManager;
 std::fstream Game::gameFile;
-const char* Game::saveFileNames[3] = {"savefile0.sav", "savefile1.sav", "savefile2.sav"};
-SaveFile Game::saveFiles[3] = {{20, 90, 0}, {20, 190, 1}, {20, 290, 2}};
+const char* Game::saveFileNames[NUM_SAVEFILES] = {"savefile0.sav", "savefile1.sav", "savefile2.sav"};
+SaveFile Game::saveFiles[NUM_SAVEFILES] = {{20, 90, 0}, {20, 190, 1}, {20, 290, 2}};
 sf::RectangleShape Game::titleRect;
 Overworld Game::overworld;
 Level Game::level;
 Camera Game::camera;
+Tutorial Game::tutorial;
 LevelShip Game::levelShip;
 OverworldShip Game::overworldShip;
 sf::RenderWindow Game::window{sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Racing"};
@@ -88,6 +89,11 @@ void Game::run()
 
             //if the ship hit a hole, go to the level
 
+            camera.draw(window);
+            break;
+        case STATE_TUTORIAL:
+            tutorial.tick();
+            tutorial.draw(window);
             camera.draw(window);
             break;
         case STATE_LEVEL:
@@ -180,6 +186,11 @@ void Game::updateOldLevelNum()
 void Game::setSaveFileIndex(int i)
 {
     saveFileIndex = i;
+}
+
+void Game::loadTutorial()
+{
+
 }
 
 Game::~Game()

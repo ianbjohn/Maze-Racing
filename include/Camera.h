@@ -14,6 +14,8 @@ public:
     float getX();
     float getY();
 
+    void setPosition(float x, float y);
+
     void follow(Entity& e, Screen& s);
     void draw(sf::RenderWindow& w);
 

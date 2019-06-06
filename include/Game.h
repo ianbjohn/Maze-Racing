@@ -13,15 +13,18 @@
 #include "LevelShip.h"
 #include "Overworld.h"
 #include "OverworldShip.h"
+#include "Tutorial.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 #define SCREEN_WIDTH_TILES 20
 #define SCREEN_HEIGHT_TILES 15
 #define NUM_SAVEFILES 3
+#define NUM_GAMESTATES 7
 
 class Level;
 class SaveFile;
+class Tutorial;
 
 class Game
 {
@@ -43,18 +46,21 @@ public:
     static void updateOldLevelNum();
     static void setSaveFileIndex(int i);
 
-    enum States {STATE_TITLE, STATE_FILESELECT, STATE_OVERWORLD, STATE_LEVEL, STATE_MSGBREAK, STATE_CREDITS};
+    static void loadTutorial();
+
+    enum States {STATE_TITLE, STATE_FILESELECT, STATE_OVERWORLD, STATE_TUTORIAL, STATE_LEVEL, STATE_MSGBREAK, STATE_CREDITS};
 
     static ResourceManager resourceManager;
     static std::fstream gameFile;
-    static const char* saveFileNames[3];
-    static SaveFile saveFiles[3];
+    static const char* saveFileNames[NUM_SAVEFILES];
+    static SaveFile saveFiles[NUM_SAVEFILES];
 
     static sf::RectangleShape titleRect;
 
     static Overworld overworld;
     static Level level;
     static Camera camera;
+    static Tutorial tutorial;
 
     static LevelShip levelShip;
     static OverworldShip overworldShip;
@@ -71,7 +77,7 @@ private:
     static int levelNumOld;
     static int saveFileIndex;
 
-    static const sf::Color backgroundColors[6];
+    static const sf::Color backgroundColors[NUM_GAMESTATES];
 };
 
 #endif // GAME_H

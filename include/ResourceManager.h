@@ -19,6 +19,7 @@ public:
     sf::Texture savePointTexture;
     sf::Texture titleTexture;
     sf::Texture saveFileTexture;
+    sf::Texture arrowSignTexture;
     sf::Image icon;
 
     //fonts

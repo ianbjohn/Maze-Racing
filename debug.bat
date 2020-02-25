@@ -1,1 +1,1 @@
-C:/MinGW/bin/gdb32 ./bin/Debug/MazeRacing
+gdb32 ./bin/Debug/MazeRacing

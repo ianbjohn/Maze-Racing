@@ -7,7 +7,7 @@
 #include "Game.h"
 #include "OverworldData.h"
 
-#define FILE_SIZE 81        //each file is 81 bytes
+#define FILE_SIZE (2 * sizeof(struct tm)) + sizeof(float) + sizeof(char) + sizeof(int)
 
 #define WIDTH 600
 #define HEIGHT 80

@@ -69,11 +69,11 @@ void Screen::cleanUpScreen()
 {
     //free the screen's memory
     for (int i = 0; i < heightTiles; i++) {
-        delete screenTiles[i];
-        delete screenRects[i];
+        delete[] screenTiles[i];
+        delete[] screenRects[i];
     }
-    delete screenTiles;
-    delete screenRects;
+    delete[] screenTiles;
+    delete[] screenRects;
 }
 
 int Screen::getScreenTile(int x, int y)

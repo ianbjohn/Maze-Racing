@@ -1,6 +1,9 @@
 TARGET = MazeRacing
 default: $(TARGET)
 
+BUILD_DIR = bin
+SFML_DIR = /usr/include/SFML
+
 #See if a wildcard or something can be made for this (idk)
 SOURCES = main.cpp \
 src/ArrowSign.cpp \
@@ -21,30 +24,28 @@ src/Screen.cpp \
 src/Tutorial.cpp \
 src/TutorialHole.cpp
 
-OPT = -O1	#Basic/no optimization for right now
-
-CC = g++
-
 INCLUDES = -Iinclude \
 -I$(SFML_DIR)/include
 
-BUILD_DIR = bin
-SFML_DIR = /usr/include/SFML
 
-DEBUG = 0
+CC = g++
+OPT = -O1	#Basic/no optimization for right now
 CFLAGS = $(INCLUDES) $(OPT) -Wall
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
+
+DEBUG = 1
 ifeq ($(DEBUG), 1)
 	CFLAGS += -g -gdwarf-2	#May need to edit
 endif
 
-LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 #Cargo cult for right now, actually learn what this does
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCES:.cpp=.o)))
 vpath %.cpp $(sort $(dir $(SOURCES)))
 
 $(BUILD_DIR)/%.o: %.cpp
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.cpp=.lst)) $< -o $@
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LIBS) -o $@

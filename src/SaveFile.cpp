@@ -117,7 +117,10 @@ int SaveFile::getIndex()
 void SaveFile::tick()
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-        if (sf::Mouse::getPosition(Game::window).x >= x && sf::Mouse::getPosition(Game::window).x < x + WIDTH && sf::Mouse::getPosition(Game::window).y >= y && sf::Mouse::getPosition(Game::window).y < y + HEIGHT) {
+        //sf::Vector2f scale = sf::Vector2f(WIDTH, HEIGHT) / Game::window.getSize();
+        sf::Vector2f scale = sf::Vector2f(1.0f, 1.0f);
+
+        if (sf::Mouse::getPosition(Game::window).x * scale.x >= x && sf::Mouse::getPosition(Game::window).x * scale.x < x + WIDTH && sf::Mouse::getPosition(Game::window).y * scale.y >= y && sf::Mouse::getPosition(Game::window).y * scale.y < y + HEIGHT) {
             if (corrupted == true)
                 return;
 

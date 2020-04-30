@@ -52,7 +52,6 @@ $(TARGET): $(OBJECTS)
 
 
 clean:
-	-rm -fR $(BUILD_DIR)
+	-rm -f $(BUILD_DIR)/*
 	-rm $(TARGET)
-	mkdir $(BUILD_DIR)
 

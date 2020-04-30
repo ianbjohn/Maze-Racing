@@ -60,6 +60,9 @@ int Entity::checkBackgroundCollision(Screen& s)
     tile = s.getScreenTile((x + width - 1) / 32, (y + height - 1) / 32);
     if (tile == 1) return 1;
 
+    //For each hitbox point, calculate the rectangular area intersected from each corresponding background block
+    //Using the top-left-most corner, do some math to figure out which slivers should be checked, then do the AND trick
+
     return 0;
 }
 
@@ -72,6 +75,11 @@ int Entity::checkEntityCollision(Entity& e)
     if ((x + width - 1) < (e.getX())) return 0;
     if (y >= (e.getY() + e.getHeight() - 1)) return 0;
     if ((y + height - 1) < (e.getY())) return 0;
+
+    //At this point, there's a collision of some time
+    //Calculate the rectangular area intersected from the two entities
+        //Use an entity ID or something to make looking this stuff up easier
+    //Using the top-left-most corner, do some math to figure out which slivers should be checked, then do the AND trick
 
     return 1;
 }

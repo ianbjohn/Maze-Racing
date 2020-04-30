@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Screen.h"
 #include "OverworldData.h"
+#include "CollisionData.h"
 #include "LevelShip.h"
 
 LevelShip::LevelShip()

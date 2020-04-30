@@ -8,6 +8,7 @@ SFML_DIR = /usr/include/SFML
 SOURCES = main.cpp \
 src/ArrowSign.cpp \
 src/Camera.cpp \
+src/CollisionData.cpp \
 src/Entity.cpp \
 src/Game.cpp \
 src/Hole.cpp \

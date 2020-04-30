@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Game.h"
 #include "Screen.h"
+#include "CollisionData.h"
 #include "OverworldShip.h"
 
 OverworldShip::OverworldShip()

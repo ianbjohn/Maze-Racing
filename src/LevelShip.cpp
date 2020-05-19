@@ -8,6 +8,7 @@
 
 LevelShip::LevelShip()
 {
+    ent_id = 1;
     x = 0;
     y = 0;
     dir = DIR_RIGHT;    //ship always moves right, but starts out not moving up or down. Direction will then change accordingly

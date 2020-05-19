@@ -7,6 +7,7 @@
 
 OverworldShip::OverworldShip()
 {
+    ent_id = 0;
     x = 480;
     y = 1952;
     returnX = x;

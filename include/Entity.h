@@ -11,17 +11,20 @@ public:
     Entity();
     virtual ~Entity();
 
+    int getID();
     int getState();
     float getX();
     float getY();
     int getWidth();
     int getHeight();
+    const unsigned int* getCollisionData();
     void setState(int state);
     void setPosition(float x, float y);
     void setDir(int d);
 
-    int checkBackgroundCollision(Screen& s);
-    int checkEntityCollision(Entity& e);
+    bool checkBackgroundCollision(Screen& s);
+    bool checkEntityCollision(Entity& e);
+    bool checkPreciseCollision(float x, float y, float xh, float yh, const unsigned int* cdata);
 
     enum directions {DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT};
 
@@ -29,6 +32,7 @@ public:
     void draw(sf::RenderWindow& w);
 
 protected:
+    int ent_id;
     float x, y;
     int width, height, dir;
     int state;

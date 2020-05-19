@@ -3,6 +3,8 @@
 
 ArrowSign::ArrowSign()
 {
+	ent_id = 2;
+
     width = 32;
     height = 32;
 

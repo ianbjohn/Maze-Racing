@@ -5,6 +5,7 @@
 *.rc
 *.exe
 *.sav
+*.txt
 /bin
 /gfx
 /obj

@@ -4,6 +4,7 @@
 
 SavePoint::SavePoint()
 {
+    ent_id = 4;
     width = 32;
     height = 32;
 

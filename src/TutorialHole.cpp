@@ -3,6 +3,7 @@
 
 TutorialHole::TutorialHole()
 {
+	ent_id = 5;
     x = 576;
     y = 1856;
     rect.setPosition(x, y);

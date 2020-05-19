@@ -1,6 +1,5 @@
 #include "Game.h"
 #include "Screen.h"
-#include "Entity.h"
 #include "Camera.h"
 
 Camera::Camera()

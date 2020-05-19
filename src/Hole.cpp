@@ -3,6 +3,7 @@
 
 Hole::Hole()
 {
+    ent_id = 3;
     width = 32;
     height = 32;
     rect.setSize(sf::Vector2f(width, height));

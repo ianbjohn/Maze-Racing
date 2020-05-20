@@ -16,7 +16,7 @@ LevelShip::LevelShip()
     speed = STARTING_SPEED;
     //manually set the hitbox size for now
     width = 32;
-    height = 9;
+    height = 32;
     rect.setPosition(sf::Vector2f(this->x, this->y));
     rect.setSize(sf::Vector2f(width, height));
     rect.setTexture(&Game::resourceManager.levelShipTexture);

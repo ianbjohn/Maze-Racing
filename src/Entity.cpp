@@ -118,7 +118,7 @@ bool Entity::checkPreciseCollision(float x, float y, float xh, float yh, const u
     int cx, cy, cxh, cyh;
     bool h_side, v_side;    //Whether object 2 is to the left/top (0) or right/bottom (1) of object 1
 
-    //Find vertical start and size of collision box, relative to object 1n
+    //Find vertical start and size of collision box, relative to object 1
     if (y < this->y) {
         v_side = false;
         cy = 0;
@@ -168,7 +168,7 @@ bool Entity::checkPreciseCollision(float x, float y, float xh, float yh, const u
 
 void Entity::draw(sf::RenderWindow& w)
 {
-    if (x >= Game::camera.getX() && x < Game::camera.getX() + SCREEN_WIDTH && y >= Game::camera.getY() && y < Game::camera.getY() + SCREEN_HEIGHT);
+    if (x >= Game::camera.getX() - 31 && x < Game::camera.getX() + SCREEN_WIDTH && y >= Game::camera.getY() - 31 && y < Game::camera.getY() + SCREEN_HEIGHT)
         w.draw(rect);
 }
 

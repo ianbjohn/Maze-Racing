@@ -3,7 +3,6 @@
 
 #include <sys/stat.h>
 #include <string>
-#include <SFML/Graphics.hpp>
 #include "Game.h"
 #include "OverworldData.h"
 
@@ -30,7 +29,8 @@ public:
     int getY();
     int getIndex();
 
-    void tick();    void draw(sf::RenderWindow& w);
+    void tick();
+    void draw(sf::RenderWindow& w);
 
 private:
     int x, y, index;

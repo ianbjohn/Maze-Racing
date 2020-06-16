@@ -21,6 +21,7 @@ OverworldShip Game::overworldShip;
 sf::RenderWindow Game::window{sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Maze Racing"};
 sf::Event Game::event;
 
+
 Game::Game()
 {
     window.setIcon(32, 32, Game::resourceManager.holeTexture.copyToImage().getPixelsPtr());
@@ -35,6 +36,7 @@ Game::Game()
 
     window.setFramerateLimit(60);
 }
+
 
 void Game::run()
 {
@@ -127,6 +129,7 @@ void Game::run()
         window.display();
     }
 }
+
 
 bool Game::checkIfNewGame()
 {

@@ -1,5 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
+#include <TGUI/TGUI.hpp>
+#include <SFML/System.hpp>
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -11,6 +13,7 @@
 #include "Entity.h"
 #include "Level.h"
 #include "LevelShip.h"
+#include "MessageBox.h"
 #include "Overworld.h"
 #include "OverworldShip.h"
 #include "Tutorial.h"
@@ -67,9 +70,11 @@ public:
 
     static sf::RenderWindow window;
     static sf::Event event;
+    static tgui::Gui gui;
     static void run();
 
 private:
+    //No real need to make these private just to have only getters/setters for them, we can probably make them public
     static bool newGame;    //1 - game has been loaded from a file
     static int state;
     static int stateOld;

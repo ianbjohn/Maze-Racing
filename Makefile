@@ -15,6 +15,8 @@ src/Hole.cpp \
 src/Level.cpp \
 src/LevelData.cpp \
 src/LevelShip.cpp \
+src/MB_Button.cpp \
+src/MessageBox.cpp \
 src/Overworld.cpp \
 src/OverworldData.cpp \
 src/OverworldShip.cpp \
